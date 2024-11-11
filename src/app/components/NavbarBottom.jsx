@@ -7,11 +7,10 @@ import { AiOutlineHome } from "react-icons/ai";
 import { HiOutlineReceiptRefund } from "react-icons/hi2";
 import { PiCookieThin } from "react-icons/pi";
 import { MdOutlinePrivacyTip } from "react-icons/md";
-import { PiScrollThin } from "react-icons/pi";
 import { PiUsersThreeLight } from "react-icons/pi";
 import { CiUser } from "react-icons/ci";
 
-import Cart from "./Cart"; // Assuming Cart component is imported
+import Cart from "./Cart";
 import Link from "next/link";
 
 const NavbarBottom = () => {
@@ -30,17 +29,14 @@ const NavbarBottom = () => {
           <PiCirclesFourThin size={27} />
           <p className="text-xs mt-1">Explore</p>
         </button>
-
         <button className="text-xl" onClick={toggleSearch}>
           <IoSearchOutline size={22} />
           <p className="text-xs mt-1">Search</p>
         </button>
-
         <button className="text-xl" onClick={toggleCart}>
           <BsHandbag size={22} />
           <p className="text-xs mt-1">Cart</p>
         </button>
-
         <button className="text-xl">
           <Link href="/login">
             <CiUser size={23} />
@@ -49,7 +45,6 @@ const NavbarBottom = () => {
         </button>
       </div>
 
-      {/* Explore Popup */}
       {showExplore && (
         <div className="absolute bottom-14 left-0 right-0 bg-white py-4 shadow-lg">
           <div className="grid grid-cols-3 gap-4 px-6">
@@ -61,10 +56,6 @@ const NavbarBottom = () => {
               <PiUsersThreeLight size={30} />
               <p className="text-xs mt-1 text-center">About Us</p>
             </button>
-            {/* <button className="flex flex-col items-center">
-              <PiScrollThin size={30} />
-              <p className="text-xs mt-1 text-center">Stories</p> 
-            </button> */}
             <button className="flex flex-col items-center">
               <HiOutlineReceiptRefund size={30} />
               <p className="text-xs mt-1 text-center">Return Policy</p>
@@ -81,7 +72,6 @@ const NavbarBottom = () => {
         </div>
       )}
 
-      {/* Search Bar Popup */}
       {showSearch && (
         <div className="absolute bottom-14 left-0 right-0 bg-white py-4 shadow-lg px-6">
           <div className="relative">
@@ -100,9 +90,8 @@ const NavbarBottom = () => {
         </div>
       )}
 
-      {/* Cart Slide (Mobile Version) */}
       <Cart
-        cartItems={[]} // Pass your cart items here
+        cartItems={[]}
         onClose={() => setCartOpen(false)}
         isOpen={cartOpen}
       />

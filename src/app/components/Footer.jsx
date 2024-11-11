@@ -72,8 +72,7 @@ const Footer = () => {
                   className="text-base flex items-center justify-center md:justify-start gap-2"
                   href="mailto:aarav.enterprises1704@gmail.com"
                 >
-                  <AiOutlineMail className="text-xl" />{" "}
-                  aarav.enterprises1704@gmail.com
+                  <AiOutlineMail className="text-xl" /> aamhikandeshi@gmail.com
                 </a>
               </li>
 

@@ -38,7 +38,7 @@ body {
 @media (max-width: 767px) {
   .cart-top {
     top: 3rem; /* Adjust the top on mobile */
-    height: calc(100vh - 3rem); /* Adjust height for mobile  */
+    height: calc(100vh - 3rem); /* Adjust height for mobile */
   }
 }
 
@@ -56,25 +56,22 @@ body {
 }
 
 /* Hide top navbar on mobile */
-@media (max-width: 768px) {
-  .md\:hidden {
+@media (max-width: 767px) {
+  .navbar-top {
     display: none;
   }
 }
 
 /* Hide bottom navbar on large devices */
-@media (min-width: 769px) {
-  .md\:hidden {
-    display: flex;
+@media (min-width: 768px) {
+  .navbar-bottom {
+    display: none;
   }
 }
 
-/* S-shaped curve for the background  */
+/* S-shaped curve for the background */
 .s-curve-image {
   clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
-  /* Alternatively, if using path(), include webkit prefix for cross-browser support */
-  /* -webkit-clip-path: path("M 0 0 Q 50% 30%, 100% 0 T 100% 100% Q 50% 70%, 0 100% Z"); */
-  /* clip-path: path("M 0 0 Q 50% 30%, 100% 0 T 100% 100% Q 50% 70%, 0 100% Z"); */
   object-fit: cover;
   height: 100%;
   width: 100%;

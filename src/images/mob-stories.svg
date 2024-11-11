@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="29px" height="31px" viewBox="0 0 29 31" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>mob-stories</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mob-stories" transform="translate(1.000000, 1.000000)">
+            <path d="M0.295930391,24.6227861 C6.77732503,26.6229273 11.5101089,26.3027969 14.4942819,23.6623947 C17.4784549,21.0219925 20.0037374,19.0832456 22.0701292,17.8461538 C22.1496222,20.8564407 22.1496222,23.1153181 22.0701292,24.6227861 C21.868715,28.4423077 21.868715,28.4423077 17.4120449,28.4986911 C11.408673,28.5746426 4.22643244,29.1885798 2.30270106,28.4423077 C0.217238138,27.6332952 -0.451685417,26.3601213 0.295930391,24.6227861 Z" id="Path-2" fill="#D9992D" fill-rule="nonzero"></path>
+            <rect id="Rectangle" stroke="#292929" stroke-linecap="round" stroke-linejoin="round" x="0.32544215" y="0" width="22.0689655" height="29" rx="3.30000007"></rect>
+            <path d="M4.73923525,11.1538462 L17.9806146,11.1538462" id="Path-31" stroke="#292929" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M4.73923525,18.9615385 L12.4633732,18.9615385" id="Path-31-Copy" stroke="#292929" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M20.4557509,10.3072005 L21.5839047,10.3132854 C22.1867925,10.3165287 22.6747281,10.8044643 22.6779713,11.4073521 L22.7437353,23.6321369 L21.0975151,26.951434 L19.4154859,23.6142324 L19.3498169,11.413118 C19.3465812,10.8056135 19.8364116,10.3104846 20.443916,10.3072005 C20.4478609,10.3072005 20.4518059,10.3072005 20.4557509,10.3072005 Z" id="Rectangle" stroke="#292929" fill="#FFFFFF" fill-rule="nonzero" stroke-linecap="round" stroke-linejoin="round" transform="translate(21.046776, 18.629317) rotate(40.000000) translate(-21.046776, -18.629317) "></path>
+        </g>
+    </g>
+</svg>

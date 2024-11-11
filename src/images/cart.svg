@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="53px" height="53px" viewBox="0 0 53 53" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>icon/no order</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Final-Draft" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.699999988" stroke-linecap="round" stroke-linejoin="round">
+        <g id="4_Empty-Cart" transform="translate(-1064.000000, -301.000000)" stroke="#292929">
+            <g id="icon/no-order" transform="translate(1063.000000, 302.000000)">
+                <path d="M13.1518532,11.3333333 L41.8481468,11.3333333 C48.1441928,11.3333333 53.2481466,16.4372871 53.2481466,22.7333332 C53.2481466,23.2749291 53.2095511,23.8158365 53.1326534,24.3519454 L50.0118497,46.1093062 C49.6092728,48.9159589 47.2049742,51 44.3695964,51 L10.6304036,51 C7.79502577,51 5.39072722,48.9159589 4.98815026,46.1093062 L1.86734656,24.3519454 C0.97341171,18.1196845 5.30098006,12.3427614 11.533241,11.4488265 C12.06935,11.3719288 12.6102574,11.3333333 13.1518532,11.3333333 Z" id="Rectangle" transform="translate(27.500000, 31.166667) scale(-1, -1) translate(-27.500000, -31.166667) "></path>
+                <path d="M17.0689655,17.9444444 L20.4465897,1.88888889 C22.2404545,0.62962963 24.701251,0 27.8289793,0 C30.9567076,0 33.3796677,0.62962963 35.0978597,1.88888889 L38.5889932,17.9444444" id="Path"></path>
+            </g>
+        </g>
+    </g>
+</svg>

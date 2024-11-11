@@ -3,11 +3,11 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
+  --background: #faf3ed;
   --foreground: #171717;
 }
 
-@media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: light) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
@@ -17,11 +17,65 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Roboto", sans-serif;
 }
 
+/* Custom utilities */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+/* Cart position adjustments */
+@media (min-width: 768px) {
+  .cart-top {
+    top: 4.4rem; /* Adjust this value according to your navbar height */
+    height: calc(100vh - 4rem); /* Take full height minus navbar height */
+  }
+}
+
+@media (max-width: 767px) {
+  .cart-top {
+    top: 3rem; /* Adjust the top on mobile */
+    height: calc(100vh - 3rem); /* Adjust height for mobile  */
+  }
+}
+
+/* Flexbox layout to fill the entire viewport height */
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+/* Cart content fills remaining space and scrolls if needed */
+.cart-content {
+  flex-grow: 1; /* Ensure cart content fills the remaining space */
+  overflow-y: auto; /* Scrollable content */
+}
+
+/* Hide top navbar on mobile */
+@media (max-width: 768px) {
+  .md\:hidden {
+    display: none;
+  }
+}
+
+/* Hide bottom navbar on large devices */
+@media (min-width: 769px) {
+  .md\:hidden {
+    display: flex;
+  }
+}
+
+/* S-shaped curve for the background  */
+.s-curve-image {
+  clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
+  /* Alternatively, if using path(), include webkit prefix for cross-browser support */
+  /* -webkit-clip-path: path("M 0 0 Q 50% 30%, 100% 0 T 100% 100% Q 50% 70%, 0 100% Z"); */
+  /* clip-path: path("M 0 0 Q 50% 30%, 100% 0 T 100% 100% Q 50% 70%, 0 100% Z"); */
+  object-fit: cover;
+  height: 100%;
+  width: 100%;
 }

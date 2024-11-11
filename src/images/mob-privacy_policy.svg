@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="30px" viewBox="0 0 24 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 55.2 (78181) - https://sketchapp.com -->
+    <title>mob-privacy_policy</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="mob-privacy_policy" transform="translate(1.000000, 1.000000)">
+            <path d="M0.295930391,24.0427861 C6.77732503,26.0429273 11.5101089,25.7227969 14.4942819,23.0823947 C17.4784549,20.4419925 20.0037374,18.5032456 22.0701292,17.2661538 C22.1496222,20.2764407 22.1496222,22.5353181 22.0701292,24.0427861 C21.868715,27.8623077 21.868715,27.8623077 17.4120449,27.9186911 C11.408673,27.9946426 4.22643244,28.6085798 2.30270106,27.8623077 C0.217238138,27.0532952 -0.451685417,25.7801213 0.295930391,24.0427861 Z" id="Path-2" fill="#D9992D" fill-rule="nonzero"></path>
+            <rect id="Rectangle" stroke="#292929" fill-rule="nonzero" x="-2.30926389e-14" y="1.59872116e-14" width="22.04" height="27.84" rx="3"></rect>
+            <path d="M6,7.72554032 C8.46755635,8.32257002 10.134223,7.74738991 11,6 C11.9119645,7.74738991 13.5786311,8.32257002 16,7.72554032 C14.8209928,10.204492 15.6168073,15.3721091 11,17.5765304 C6.53606098,15.3721091 7.09573964,10.204492 6,7.72554032 Z" id="Path-5" stroke="#292929" stroke-linejoin="round"></path>
+            <polyline id="Path-6" stroke="#292929" stroke-linecap="round" stroke-linejoin="round" points="9.420263 11.8941034 11 13.2747882 13.2137881 10.5490003"></polyline>
+        </g>
+    </g>
+</svg>

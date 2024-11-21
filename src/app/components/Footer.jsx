@@ -5,7 +5,7 @@ import { AiOutlineMail } from "react-icons/ai";
 
 const Footer = () => {
   return (
-    <footer className="pt-12 relative bg-[#723C1B] text-white">
+    <footer className="pt-12 pb-[calc(var(--navbar-height)+16px)] relative bg-[#723C1B] text-white">
       <div className="mx-auto max-w-7xl p-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-8 pt-20">
           {/* Logo and description section */}
@@ -24,7 +24,7 @@ const Footer = () => {
                 Aamhi Khandeshi Foods was established in 2024 with a motive to
                 manufacture authentic Maharashtrian pickles, Papads. All these
                 wholesome products provide an enticing blend of taste, and are
-                made from fresh, high quality ingredients procured directly from
+                made from fresh, high-quality ingredients procured directly from
                 the farmer. All our products are nourishing as well as tasty and
                 also 100% natural.
               </p>
@@ -105,9 +105,8 @@ const Footer = () => {
           </div>
         </div>
       </div>
-      {/* Footer bottom section */}
 
-      {/* Added thin black border */}
+      {/* Footer bottom section */}
       <div className="text-center py-6 mt-2 md:mt-2 lg:mt-2 mb-0 border-t border-white pt-6">
         <p className="text-sm">
           © Copyright{" "}

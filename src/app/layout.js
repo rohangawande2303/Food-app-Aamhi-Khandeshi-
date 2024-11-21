@@ -1,7 +1,9 @@
+// layout.jsx
+import { CartProvider } from "./context/cartContext"; // Import CartProvider
 import "./globals.css";
+import { Roboto } from "next/font/google";
 import NavbarTop from "./components/NavbarTop";
 import NavbarBottom from "./components/NavbarBottom";
-import { Roboto } from "next/font/google";
 import Footer from "./components/Footer";
 
 const roboto = Roboto({
@@ -16,15 +18,18 @@ export const metadata = {
 
 export default function Layout({ children }) {
   return (
-    <html lang="en">
-      <body className={roboto.className}>
-        <div>
-          <NavbarTop />
-          <main>{children}</main>
-          <Footer />
-          <NavbarBottom />
-        </div>
-      </body>
-    </html>
+    <CartProvider>
+      <html lang="en">
+        <body className={roboto.className}>
+          <div>
+            {/* The cart context will be available here */}
+            <NavbarTop />
+            <main>{children}</main>
+            <Footer />
+            <NavbarBottom />
+          </div>
+        </body>
+      </html>
+    </CartProvider>
   );
 }

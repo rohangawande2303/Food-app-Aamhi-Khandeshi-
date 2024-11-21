@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
-import { productData } from "../data"; // Assuming this is where the data for powders will be fetched from
-import ItemCard from "../../components/ItemCard"; // Import the ItemCard component
+import { productData } from "../data"; // Ensure correct import path
+import ItemCard from "../../components/ItemCard"; // Import ItemCard component
 
 const PowdersPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,39 +12,48 @@ const PowdersPage = () => {
     Tangy: false,
     Spice: false,
   });
-  const [cart, setCart] = useState([]);
-  const [selectedOptions, setSelectedOptions] = useState({});
 
   // Filter the product data by category 'Powders' and apply the search and taste filters
   const filteredProducts = productData
-    .filter((product) => product.category === "Powders") // Filter by category first
+    .filter((product) => product.category === "Powders") // Filter by category
     .filter((product) => {
       // Check for search term
       const matchesSearch = product.title
-        .toLowerCase()
+        ?.toLowerCase()
         .includes(searchTerm.toLowerCase());
 
       // Check for taste filters
-      const matchesFilters =
-        (!filters.Sweet || product.taste.includes("Sweet")) &&
-        (!filters.Sour || product.taste.includes("Sour")) &&
-        (!filters.Tangy || product.taste.includes("Tangy")) &&
-        (!filters.Spice || product.taste.includes("Spice"));
+      const matchesFilters = Object.keys(filters).every(
+        (filterKey) =>
+          !filters[filterKey] ||
+          product.taste.some((taste) =>
+            taste.toLowerCase().includes(filterKey.toLowerCase())
+          )
+      );
 
       return matchesSearch && matchesFilters;
     });
 
   return (
     <div className="bg-[#faf3ed] min-h-screen">
-      <header className="bg-brown-dark text-black py-4 mt-20">
-        <h1 className="text-3xl font-bold text-center sm:text-4xl md:text-5xl bg-brown-400">
+      {/* Header Section */}
+      <header className="relative mt-0 md:mt-4">
+        <div
+          className="absolute inset-0 bg-cover bg-center h-16 md:h-36"
+          style={{
+            backgroundImage: "url('/images/powders_header.jpg')", // Path to the image in the public folder
+          }}
+        ></div>
+        <h1 className="relative text-3xl font-bold text-left sm:text-3xl md:text-6xl py-4 md:py-12 text-white pl-2 md:pl-12">
           Powders
         </h1>
       </header>
+
+      {/* Main Content */}
       <div className="bg-cream py-8">
         <div className="max-w-8xl mx-auto flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-8 px-4">
-          {/* Sidebar for search and filters */}
-          <div className="w-full sm:w-1/4 p-4 bg-white rounded-lg shadow-lg">
+          {/* Sidebar for search and filters - reduced width */}
+          <div className="w-full sm:w-1/4 lg:w-1/5 p-4 bg-white rounded-lg shadow-lg">
             <h3 className="text-lg font-medium mb-4">Search within Powders</h3>
             <input
               type="text"
@@ -74,19 +83,20 @@ const PowdersPage = () => {
           </div>
 
           {/* Products Display Section */}
-          <div className="w-full sm:w-3/4">
+          <div className="w-full sm:w-3/4 lg:w-4/5">
             <h3 className="text-lg font-medium mb-4">
               Showing {filteredProducts.length} products
             </h3>
             <div className="space-y-6">
-              {filteredProducts.map((product) => {
-                return (
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((product) => (
                   <div key={product.id}>
-                    {/* Pass product.id to ItemCard */}
                     <ItemCard productId={product.id} />
                   </div>
-                );
-              })}
+                ))
+              ) : (
+                <p>No products found for the selected criteria.</p>
+              )}
             </div>
           </div>
         </div>

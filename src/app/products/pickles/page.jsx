@@ -36,15 +36,24 @@ const PicklesPage = () => {
 
   return (
     <div className="bg-[#faf3ed] min-h-screen">
-      <header className="bg-brown-dark text-black py-4 mt-20">
-        <h1 className="text-3xl font-bold text-center sm:text-4xl md:text-5xl bg-brown-400">
+      {/* Header Section */}
+      <header className="relative mt-0 md:mt-4">
+        <div
+          className="absolute inset-0 bg-cover bg-center h-16 md:h-36"
+          style={{
+            backgroundImage: "url('/images/pickles_header.jpg')", // Path to the image in public folder
+          }}
+        ></div>
+        <h1 className="relative text-3xl font-bold text-left sm:text-3xl md:text-6xl py-4 md:py-12 text-white pl-2 md:pl-12">
           Pickles
         </h1>
       </header>
+
+      {/* Main Content */}
       <div className="bg-cream py-8">
         <div className="max-w-8xl mx-auto flex flex-col sm:flex-row space-y-6 sm:space-y-0 sm:space-x-8 px-4">
-          {/* Sidebar for search and filters */}
-          <div className="w-full sm:w-1/4 p-4 bg-white rounded-lg shadow-lg">
+          {/* Sidebar for search and filters - reduced width */}
+          <div className="w-full sm:w-1/4 lg:w-1/5 p-4 bg-white rounded-lg shadow-lg">
             <h3 className="text-lg font-medium mb-4">Search within Pickles</h3>
             <input
               type="text"
@@ -74,7 +83,7 @@ const PicklesPage = () => {
           </div>
 
           {/* Products Display Section */}
-          <div className="w-full sm:w-3/4">
+          <div className="w-full sm:w-3/4 lg:w-4/5">
             <h3 className="text-lg font-medium mb-4">
               Showing {filteredProducts.length} products
             </h3>

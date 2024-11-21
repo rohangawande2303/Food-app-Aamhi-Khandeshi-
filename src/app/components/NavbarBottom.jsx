@@ -138,7 +138,7 @@ const NavbarBottom = () => {
           showExplore ? "h-64" : "h-0"
         }`}
       >
-        <div className="h-full overflow-y-auto p-4">
+        <div className="block md:hidden h-full overflow-y-auto p-4">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Explore</h3>
             <button onClick={() => toggleState(setShowExplore)} className="p-2">
@@ -188,7 +188,7 @@ const NavbarBottom = () => {
           showShop ? "h-64" : "h-0"
         }`}
       >
-        <div className="h-full overflow-y-auto p-4">
+        <div className="block md:hidden h-full overflow-y-auto p-4">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Shop</h3>
             <button onClick={() => toggleState(setShowShop)} className="p-2">

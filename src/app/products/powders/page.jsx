@@ -10,7 +10,7 @@ const PowdersPage = () => {
     Sweet: false,
     Sour: false,
     Tangy: false,
-    Spice: false,
+    Spicy: false,
   });
 
   // Filter the product data by category 'Powders' and apply the search and taste filters
@@ -63,7 +63,7 @@ const PowdersPage = () => {
             />
             <h3 className="text-lg font-medium mb-2">Filter by Taste</h3>
             <div className="space-y-2">
-              {["Sweet", "Sour", "Tangy", "Spice"].map((taste) => (
+              {["Sweet", "Sour", "Tangy", "Spicy"].map((taste) => (
                 <div key={taste} className="flex items-center">
                   <input
                     type="checkbox"

@@ -10,7 +10,7 @@ export const productData = [
       { size: "500g", price: 350 },
       { size: "250g", price: 180 },
     ],
-    taste: ["Crispy", "Sweet", "Spicy"],
+    taste: ["Crispy", "Mild", "Spicy"],
     image: "/images/papads/bibdi-papad.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
@@ -26,7 +26,7 @@ export const productData = [
       { size: "500g", price: 440 },
       { size: "250g", price: 225 },
     ],
-    taste: ["Crispy", "Sour", "Spicy"],
+    taste: ["Crispy","Spicy"],
     image: "/images/papads/jwari-papad.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
@@ -139,7 +139,7 @@ export const productData = [
       { size: "500g", price: 400 },
       { size: "250g", price: 210 },
     ],
-    taste: ["Spicy", "Tangy", "Sour"],
+    taste: ["Spicy","Sour"],
     image: "/images/pickles/green-chili-pickle.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
@@ -155,7 +155,7 @@ export const productData = [
       { size: "400g", price: 280 },
       { size: "200g", price: 150 },
     ],
-    taste: ["Spicy", "Sour", "Tangy"],
+    taste: ["Spicy", "Sour"],
     image: "/images/powders/peanut-powder.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
@@ -171,7 +171,7 @@ export const productData = [
       { size: "400g", price: 230 },
       { size: "200g", price: 120 },
     ],
-    taste: ["Spicy", "Sour", "Tangy"],
+    taste: ["Spicy", "Sour"],
     image: "/images/powders/sesame-powder.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
@@ -196,7 +196,7 @@ export const productData = [
   },
   {
     id: 13,
-    title: "Aam ka Murabba",
+    title: "Aam ka Murabba (Jam)",
     category: "Powders",
     description:
       "A traditional Indian preserve made from raw mangoes, sugar, and spices, known for its sweet and tangy flavor.",
@@ -204,7 +204,7 @@ export const productData = [
       { size: "400g", price: 240 },
       { size: "200g", price: 130 },
     ],
-    taste: ["Sweet", "Tangy", "Spicy"],
+    taste: ["Sweet", "Tangy",],
     image: "/images/powders/murabba-powder.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },

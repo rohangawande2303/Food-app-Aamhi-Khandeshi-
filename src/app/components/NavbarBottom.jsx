@@ -19,7 +19,7 @@ import Image from "next/image";
 import papads from "../../images/papads.svg";
 import pickles from "../../images/pickles.svg";
 import powders from "../../images/powders.svg";
-import { useCart } from "../context/cartContext"; // Import useCart hook
+import { useCart } from "../context/cartContext";
 import SearchModal from "./SearchModal";
 
 const NavbarBottom = () => {
@@ -36,25 +36,22 @@ const NavbarBottom = () => {
     0
   );
 
-  const toggleState = (setter) => setter((prev) => !prev);
-
-  // Ensure only one modal is open at a time
-  const openSearch = () => {
-    setShowExplore(false); // Close other modals
-    setShowShop(false); // Close other modals
-    setShowSearch(true); // Open search modal
+  const toggleExplore = () => {
+    setShowExplore((prev) => !prev);
+    setShowShop(false);
+    setShowSearch(false);
   };
 
-  const openExplore = () => {
-    setShowShop(false); // Close shop modal
-    setShowSearch(false); // Close search modal
-    setShowExplore(true); // Open explore modal
+  const toggleShop = () => {
+    setShowShop((prev) => !prev);
+    setShowExplore(false);
+    setShowSearch(false);
   };
 
-  const openShop = () => {
-    setShowExplore(false); // Close explore modal
-    setShowSearch(false); // Close search modal
-    setShowShop(true); // Open shop modal
+  const toggleSearch = () => {
+    setShowSearch((prev) => !prev);
+    setShowExplore(false);
+    setShowShop(false);
   };
 
   useEffect(() => {
@@ -65,7 +62,6 @@ const NavbarBottom = () => {
     };
   }, [showExplore, showShop, showSearch]);
 
-  // Handle opening and closing the cart
   const toggleCart = () => {
     setCartOpen((prev) => !prev);
   };
@@ -75,22 +71,21 @@ const NavbarBottom = () => {
       {/* Bottom Navbar */}
       <div className="fixed bottom-0 w-full bg-[#F7EDE4] h-16 rounded-tl-[10px] rounded-tr-[10px] shadow-md md:hidden z-50">
         <div className="flex justify-around py-2">
-          <button onClick={openExplore} className="text-center">
+          <button onClick={toggleExplore} className="text-center">
             <CircleEllipsis size={23} />
             <p className="text-xs mt-1">Explore</p>
           </button>
-          <button onClick={openSearch} className="text-center relative">
+          <button onClick={toggleSearch} className="text-center relative">
             <Search size={23} />
             <p className="text-xs mt-1">Search</p>
           </button>
-          <button onClick={openShop} className="text-center">
+          <button onClick={toggleShop} className="text-center">
             <SquareChevronUp size={23} />
             <p className="text-xs mt-1">Shop</p>
           </button>
           <button onClick={toggleCart} className="relative text-center">
             <ShoppingCart size={23} />
             <p className="text-xs mt-1">Cart</p>
-            {/* Display total quantity as cart count */}
             {totalCartQuantity > 0 && (
               <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs px-1">
                 {totalCartQuantity}
@@ -113,13 +108,12 @@ const NavbarBottom = () => {
         <div className="block md:hidden h-full overflow-y-auto p-4">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Explore</h3>
-            <button onClick={() => toggleState(setShowExplore)} className="p-2">
+            <button onClick={toggleExplore} className="p-2">
               <X size={24} />
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {[
-              { href: "/", icon: <AiOutlineHome size={24} />, label: "Home" },
+            {[ { href: "/", icon: <AiOutlineHome size={24} />, label: "Home" },
               {
                 href: "/about",
                 icon: <PiUsersThreeLight size={24} />,
@@ -139,8 +133,7 @@ const NavbarBottom = () => {
                 href: "/privacy-policy",
                 icon: <MdOutlinePrivacyTip size={24} />,
                 label: "Privacy Policy",
-              },
-            ].map(({ href, icon, label }) => (
+              }, ].map(({ href, icon, label }) => (
               <Link key={href} href={href}>
                 <div className="flex flex-col items-center">
                   <div className="bg-gray-100 p-3 rounded-full mb-2">
@@ -163,16 +156,14 @@ const NavbarBottom = () => {
         <div className="block md:hidden h-full overflow-y-auto p-4">
           <div className="flex justify-between items-center mb-4">
             <h3 className="text-lg font-semibold">Shop</h3>
-            <button onClick={() => toggleState(setShowShop)} className="p-2">
+            <button onClick={toggleShop} className="p-2">
               <X size={24} />
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {[
-              { href: "/products/papads", image: papads, label: "Papads" },
+            {[ { href: "/products/papads", image: papads, label: "Papads" },
               { href: "/products/pickles", image: pickles, label: "Pickles" },
-              { href: "/products/powders", image: powders, label: "Powders" },
-            ].map(({ href, image, label }) => (
+              { href: "/products/powders", image: powders, label: "Powders" }, ].map(({ href, image, label }) => (
               <Link key={href} href={href}>
                 <div className="flex flex-col items-center">
                   <div className="bg-gray-100 p-3 rounded-full mb-2">
@@ -191,7 +182,7 @@ const NavbarBottom = () => {
 
       {/* Search Modal */}
       {showSearch && (
-        <SearchModal isOpen={showSearch} onClose={() => setShowSearch(false)} />
+        <SearchModal isOpen={showSearch} onClose={toggleSearch} />
       )}
     </>
   );

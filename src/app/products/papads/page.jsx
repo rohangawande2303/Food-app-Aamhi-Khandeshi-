@@ -8,7 +8,7 @@ const PapadPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     Crispy: false,
-    Spicy: false,
+    Spicy: false, 
     Mild: false,
   });
 

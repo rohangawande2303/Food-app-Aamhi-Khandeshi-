@@ -3,9 +3,15 @@ import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { productData } from "../products/data";
 
+// Import your cart state management (corrected import)
+import { useCart } from "../context/cartContext";
+
 export default function TopPick() {
   const [selectedSize, setSelectedSize] = useState({});
   const [showSwipeHint, setShowSwipeHint] = useState(true);
+
+  // Access the cart context (corrected hook name)
+  const { addToCart } = useCart();
 
   const getTopProducts = (category) => {
     return productData
@@ -22,8 +28,21 @@ export default function TopPick() {
     [papads, pickles, powders]
   );
 
-  const handleAddToCart = (productTitle, size) => {
-    console.log(`${productTitle} with size ${size} added to cart`);
+  const handleAddToCart = (product, size) => {
+    if (!size) {
+      alert("Please select a size before adding to the cart!");
+      return;
+    }
+    const productToAdd = {
+      id: product.id,
+      title: product.title,
+      size: size,
+      price: product.sizeOptions.find((option) => option.size === size)?.price,
+      quantity: 1,
+    };
+
+    addToCart(productToAdd); // Add product to cart using the context function
+    console.log(`${product.title} with size ${size} added to cart`);
   };
 
   const handleSizeChange = (productId, event) => {
@@ -110,7 +129,10 @@ export default function TopPick() {
 
                     <button
                       onClick={() =>
-                        handleAddToCart(product.title, selectedSize[product.id])
+                        handleAddToCart(
+                          product,
+                          selectedSize[product.id] // Pass the selected size
+                        )
                       }
                       className="w-full bg-green-600 hover:bg-green-700 text-white text-sm sm:text-base py-2 rounded"
                     >

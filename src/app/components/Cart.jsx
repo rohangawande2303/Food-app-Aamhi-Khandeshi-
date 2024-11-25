@@ -1,8 +1,10 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react";
 import { useCart } from "../context/cartContext";
 import Image from "next/image";
-import { useState, useEffect } from "react";
 
-// Custom hook for media query
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);
 
@@ -18,22 +20,27 @@ const useMediaQuery = (query) => {
   return matches;
 };
 
-const Cart = ({ cartItems, isOpen, onClose }) => {
-  const { updateQuantity } = useCart();
+const Cart = ({ isOpen, onClose }) => {
+  const { cartItems, updateQuantity } = useCart();
   const isMobile = useMediaQuery("(max-width: 768px)");
+  const router = useRouter();
+
+  const handleCheckout = () => {
+    router.push("/checkout");
+  };
 
   return (
     <div
-      className={`fixed right-0 bg-yellow-50 border border-gray-300 transition-transform duration-700 ease-in-out transform ${
+      className={`fixed right-0 bg-[#FBF3E4] border border-gray-300 transition-transform duration-700 ease-in-out transform ${
         isOpen ? "translate-x-0" : "translate-x-full"
       }`}
       style={{
         width: "100%",
         maxWidth: "28rem",
-        zIndex: 60, // Increased z-index to ensure it displays above other elements
-        top: isMobile ? "49px" : "4rem", // Top bar height for mobile (adjust as needed)
-        bottom: isMobile ? "56px" : "auto", // Bottom navbar height for mobile (adjust as needed)
-        height: isMobile ? "calc(100vh - 56px - 50px)" : "75vh", // Adjust height for mobile screens
+        zIndex: 60,
+        top: isMobile ? "49px" : "4rem",
+        bottom: isMobile ? "56px" : "auto",
+        height: isMobile ? "calc(100vh - 56px - 50px)" : "75vh",
         overflowY: "auto",
       }}
       aria-labelledby="cart-heading"
@@ -67,35 +74,54 @@ const Cart = ({ cartItems, isOpen, onClose }) => {
             {cartItems.map((item) => (
               <li
                 key={item.id}
-                className="flex justify-between items-center mb-4"
+                className="flex justify-between items-start mb-6 p-4 rounded-md bg-[#FDF6E3]"
               >
-                <div className="flex items-center">
+                {/* Product Image */}
+                <div className="flex-shrink-0">
                   <Image
                     src={item.image}
-                    alt={item.name}
-                    width={50}
-                    height={50}
+                    alt={item.title || item.name} // Fallback to item.name if title doesn't exist
+                    width={80}
+                    height={80}
                     className="rounded-md"
                   />
-                  <span className="ml-4">{item.name}</span>
                 </div>
-                <div className="flex items-center">
-                  <button
-                    onClick={() => updateQuantity(item.id, item.count - 1)}
-                    className="text-sm px-2 py-1 bg-orange-500 text-white rounded-full"
-                  >
-                    -
-                  </button>
-                  <span className="mx-2">{item.count}</span>
-                  <button
-                    onClick={() => updateQuantity(item.id, item.count + 1)}
-                    className="text-sm px-2 py-1 bg-orange-500 text-white rounded-full"
-                  >
-                    +
-                  </button>
-                  <span className="ml-4 font-semibold text-orange-600">
+
+                {/* Product Details */}
+                <div className="flex-1 ml-4">
+                  {/* Product Name */}
+                  <h2 className="text-lg font-semibold text-black">
+                    {item.title || item.name} {/* Fallback to item.name if title doesn't exist */}
+                  </h2>
+                </div>
+
+                {/* Pricing & Quantity Controls */}
+                <div className="text-right">
+                  {/* Unit Price */}
+                  <p className="text-sm text-gray-600">Unit Price</p>
+                  <p className="font-semibold text-lg">₹{item.price}</p>
+
+                  {/* Quantity Controls */}
+                  <div className="flex items-center mt-2">
+                    <button
+                      onClick={() => updateQuantity(item.id, item.count - 1)}
+                      className="px-2 py-1 border border-green-500 text-green-500 rounded-md"
+                    >
+                      -
+                    </button>
+                    <span className="mx-2">{item.count}</span>
+                    <button
+                      onClick={() => updateQuantity(item.id, item.count + 1)}
+                      className="px-2 py-1 border border-green-500 text-green-500 rounded-md"
+                    >
+                      +
+                    </button>
+                  </div>
+
+                  {/* Item Total */}
+                  <p className="font-semibold text-lg text-green-600 mt-2">
                     ₹{item.price * item.count}
-                  </span>
+                  </p>
                 </div>
               </li>
             ))}
@@ -103,7 +129,7 @@ const Cart = ({ cartItems, isOpen, onClose }) => {
         )}
       </div>
 
-      {/* Total and Checkout Button */}
+      {/* Total Price & Checkout */}
       <div className="p-4 flex justify-between items-center">
         <span className="font-semibold text-orange-600">
           Total: ₹
@@ -111,7 +137,7 @@ const Cart = ({ cartItems, isOpen, onClose }) => {
         </span>
         <button
           className="bg-orange-500 text-white px-4 py-2 rounded-full"
-          onClick={() => console.log("Checkout button clicked")}
+          onClick={handleCheckout}
         >
           Checkout
         </button>

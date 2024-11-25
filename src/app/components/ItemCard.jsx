@@ -1,23 +1,69 @@
 import { useState } from "react";
 import Image from "next/image";
-import { productData } from "../products/data"; // Adjust the path as needed
+import { productData } from "../products/data"; // Adjust the path if needed
+import { useCart } from "../context/cartContext"; // Use the CartContext
 
 export default function ItemCard({ productId }) {
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState("");
+  const [notification, setNotification] = useState({ message: "", type: "" }); // Notification message with type
+  const { addToCart } = useCart(); // Access the addToCart function from CartContext
 
-  // Find the product by its id
+  // Find the product based on the ID
   const product = productData.find((product) => product.id === productId);
 
-  // If product is not found, display an error message
+  // Handle case where product doesn't exist
   if (!product) return <div>Product not found!</div>;
 
   const { title, category, description, sizeOptions, taste, image } = product;
 
+  const handleAddToCart = () => {
+    if (!selectedSize) {
+      setNotification({
+        message: "Please select a size before adding to the cart!",
+        type: "error",
+      });
+      return;
+    }
+
+    // Add product to the cart using CartContext
+    const selectedPrice = sizeOptions.find(
+      (sizeOption) => sizeOption.size === selectedSize
+    )?.price;
+
+    addToCart({
+      id: product.id,
+      title: product.title,
+      size: selectedSize,
+      price: selectedPrice, // Include the price in the cart
+      quantity,
+    });
+
+    setNotification({
+      message: "Product successfully added to the cart!",
+      type: "success",
+    });
+
+    // Clear notification after 3 seconds
+    setTimeout(() => setNotification({ message: "", type: "" }), 3000);
+  };
+
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      {" "}
-      {/* Change max-width to md */}
+    <div className="relative max-w-6xl mx-auto p-6">
+      {/* Notification Bar */}
+      {notification.message && (
+        <div
+          className={`fixed top-16 left-1/2 transform -translate-x-1/2 p-3 bg-white border rounded-lg shadow-lg z-50 w-[90%] md:w-auto ${
+            notification.type === "success"
+              ? "border-green-500 text-green-600"
+              : "border-red-500 text-red-600"
+          }`}
+        >
+          <p className="text-sm font-medium">{notification.message}</p>
+        </div>
+      )}
+
+      {/* Product Card */}
       <div className="bg-white rounded-xl shadow-lg overflow-hidden">
         <div className="flex flex-col md:flex-row">
           {/* Product Image */}
@@ -25,9 +71,9 @@ export default function ItemCard({ productId }) {
             <Image
               src={image}
               alt={title}
-              width={400} // Specify width for proper image rendering
-              height={400} // Specify height for proper image rendering
-              className="w-full h-full object-cover" // Ensure the image covers the container while being cropped if necessary
+              width={400}
+              height={400}
+              className="w-full h-full object-cover"
             />
           </div>
 
@@ -35,8 +81,6 @@ export default function ItemCard({ productId }) {
           <div className="md:w-2/4 p-6 flex flex-col justify-between h-full">
             <h2 className="text-2xl font-bold text-gray-900">{title}</h2>
             <p className="text-gray-600 mb-2">{category}</p>
-
-            {/* Only show description and taste profile for desktop */}
             <div className="hidden md:block">
               <p className="text-gray-700 mb-6">{description}</p>
               <div className="mt-4">
@@ -58,10 +102,10 @@ export default function ItemCard({ productId }) {
                     <button
                       key={index}
                       onClick={() => setSelectedSize(size)}
-                      className={`flex-1 px-3 py-2 text-sm border rounded-lg ${
+                      className={`flex-1 px-3 py-2 text-sm rounded-lg border ${
                         selectedSize === size
-                          ? "border-green-500 text-green-600"
-                          : "border-gray-300"
+                          ? "border-green-500 text-green-600" // Highlight selected size
+                          : "border-gray-300 text-gray-700" // Default style for unselected sizes
                       }`}
                     >
                       ₹{price}/{size}
@@ -72,7 +116,6 @@ export default function ItemCard({ productId }) {
 
               {/* Quantity Controls and Add to Cart Button */}
               <div className="flex flex-row md:flex-col gap-4">
-                {/* Quantity section */}
                 <div className="w-1/2 md:w-1/2">
                   <p className="font-medium text-gray-900 mb-2">Quantity</p>
                   <div className="flex border border-gray-300 rounded-lg">
@@ -94,9 +137,11 @@ export default function ItemCard({ productId }) {
                   </div>
                 </div>
 
-                {/* Add to Cart Button */}
                 <div className="w-1/2 md:w-full mt-8 md:mt-0">
-                  <button className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700">
+                  <button
+                    onClick={handleAddToCart}
+                    className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700"
+                  >
                     <span className="md:hidden">Add</span>
                     <span className="hidden md:inline">Add to Cart</span>
                   </button>

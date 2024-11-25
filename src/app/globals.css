@@ -14,10 +14,23 @@
   }
 }
 
+/* Base styles */
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: "Roboto", sans-serif;
+  padding-top: 3rem;
+  overflow-x: hidden;
+}
+
+/* Hide scrollbar but keep functionality */
+* {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+*::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
 }
 
 /* Custom utilities */
@@ -27,67 +40,64 @@ body {
   }
 }
 
-/* Cart position adjustments */
-@media (min-width: 768px) {
-  .cart-top {
-    top: 4.8rem; /* Adjust this value according to your navbar height (4.4rem or 4.8rem) */
-    height: calc(100vh - 4.8rem); /* Full height minus navbar height */
-    z-index: 50; /* Ensure cart stays above navbar */
-  }
-}
-
-@media (max-width: 767px) {
-  .cart-top {
-    top: auto; /* Adjust the top on mobile */
-    height: calc(100vh - 3rem); /* Adjust height for mobile */
-    z-index: 50; /* Ensure cart stays above the navbar */
-  }
-}
-
-/* Flexbox layout to fill the entire viewport height */
+/* Cart styles */
 .cart-container {
   display: flex;
   flex-direction: column;
   height: 100%;
 }
 
-/* Cart content fills remaining space and scrolls if needed */
 .cart-content {
   flex-grow: 1;
   overflow-y: auto;
 }
 
-body {
-  padding-top: 3rem; /* Ensure there's enough space between the navbar and the cart modal */
+/* Cart position adjustments */
+@media (min-width: 768px) {
+  .cart-top {
+    top: 4.8rem;
+    height: calc(100vh - 4.8rem);
+    z-index: 50;
+  }
 }
 
-/* Hide top navbar on mobile */
+@media (max-width: 767px) {
+  .cart-top {
+    top: auto;
+    height: calc(100vh - 3rem);
+    z-index: 50;
+  }
+}
+
+/* Navbar visibility */
 @media (max-width: 767px) {
   .navbar-top {
     display: none;
   }
 }
 
-/* Hide bottom navbar on large devices */
 @media (min-width: 768px) {
   .navbar-bottom {
     display: none;
   }
 }
 
-/* S-shaped curve for the background */
+/* S-curve background */
 .s-curve-image {
   clip-path: polygon(0 0, 100% 0, 100% 80%, 0 100%);
   object-fit: cover;
   height: 100%;
   width: 100%;
 }
-/* Hide scrollbar for both mobile and desktop */
-.scrollbar-hide::-webkit-scrollbar {
-  display: none;
+
+/* Additional scroll hiding utility classes */
+.scrollbar-hide,
+.custom-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.scrollbar-hide {
-  -ms-overflow-style: none; /* For Internet Explorer */
-  scrollbar-width: none; /* For Firefox */
+.scrollbar-hide::-webkit-scrollbar,
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
 }

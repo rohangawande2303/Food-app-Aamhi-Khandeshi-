@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import loginImage from "../../images/myaccount-cover.png"; // Adjust the path to your actual image
+import Link from "next/link";
 
 const LoginPageContent = () => {
   return (
@@ -24,9 +25,9 @@ const LoginPageContent = () => {
           </h2>
           <p className="mb-6 text-sm text-gray-600">
             Did you not join the family yet?{" "}
-            <a href="#" className="text-green-600 hover:underline">
-              Join now!
-            </a>
+            <Link href="/register" className="text-green-600 hover:underline">
+              Register here!
+            </Link>
           </p>
           <form className="space-y-6">
             <div>
@@ -65,9 +66,9 @@ const LoginPageContent = () => {
                 />
                 <span className="text-sm text-gray-600">Remember me</span>
               </label>
-              <a href="#" className="text-sm text-green-600 hover:underline">
+              <Link href="#" className="text-sm text-green-600 hover:underline">
                 Forgot password?
-              </a>
+              </Link>
             </div>
             <button
               type="submit"

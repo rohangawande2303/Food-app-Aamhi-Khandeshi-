@@ -19,7 +19,7 @@ const ProductsSection = () => {
     <section className="py-12 bg-[#f7f0dd]">
       {!isMobile && (
         <h2 className="text-5xl font-bold text-center mb-20 mt-4">
-          Explore Jandhyala Foods
+          Explore Aamhi Khandeshi Food
         </h2>
       )}
       <div

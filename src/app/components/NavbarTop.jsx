@@ -27,7 +27,7 @@ const NavbarTop = () => {
         <div className="text-center">
           <Link href="/">
             <span className="text-xl font-bold" style={{ color: "#d18334" }}>
-              Jandhyala Foods
+              Aamhi Khandeshi
             </span>
           </Link>
         </div>
@@ -36,7 +36,7 @@ const NavbarTop = () => {
         <div className="logo">
           <Link href="/">
             <span className="text-2xl font-bold" style={{ color: "#d18334" }}>
-              Jandhyala Foods
+              Aamhi Khandeshi
             </span>
           </Link>
         </div>

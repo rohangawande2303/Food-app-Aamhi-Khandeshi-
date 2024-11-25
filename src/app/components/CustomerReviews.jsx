@@ -9,7 +9,7 @@ export default function CustomerReviews() {
       id: 1,
       name: "Vidya",
       location: "Hyderabad",
-      date: "20 August 2020",
+      date: "20 August 2024",
       quote: "'Irresistible taste', If I may sum it up in one phrase.",
       review:
         "We tried various brands of pickles, picking them off the shelves of supermarkets, but never enjoyed their taste because of the preservatives. Jandhyala's products are always fresh and you would not find any preservatives at all.",
@@ -18,7 +18,7 @@ export default function CustomerReviews() {
       id: 2,
       name: "Priya",
       location: "Bangalore",
-      date: "15 September 2020",
+      date: "15 September 2024",
       quote: "'Authentic taste of home'",
       review:
         "The pickles remind me of my grandmother's recipes. The flavors are perfectly balanced and the quality is consistently excellent. I've been a regular customer for over a year now.",
@@ -27,7 +27,7 @@ export default function CustomerReviews() {
       id: 3,
       name: "Raj",
       location: "Chennai",
-      date: "5 October 2020",
+      date: "5 October 2024",
       quote: "'Best pickles I've ever had'",
       review:
         "The traditional taste and the quality of ingredients used are exceptional. What I love most is that they don't use any artificial preservatives. It's pure, authentic, and delicious.",

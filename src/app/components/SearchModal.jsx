@@ -86,7 +86,7 @@ const SearchModal = ({ isOpen, onClose }) => {
           <X className="w-6 h-6" />
         </button>
         <h2 className="text-3xl font-bold text-center mb-8 text-orange-600">
-          Search Jandhyala Foods
+          Search Aamhi Khandeshi Food
         </h2>
 
         <div className="max-w-xl mx-auto mb-8">

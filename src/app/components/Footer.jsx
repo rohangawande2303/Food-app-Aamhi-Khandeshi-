@@ -16,7 +16,7 @@ const Footer = () => {
                   className="text-4xl font-bold"
                   style={{ color: "#d18334" }}
                 >
-                  Jandhyala Foods
+                  Aamhi Khandeshi
                 </span>
               </Link>
 

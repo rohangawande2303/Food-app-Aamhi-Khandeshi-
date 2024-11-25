@@ -42,7 +42,7 @@ export const productData = [
       { size: "500g", price: 440 },
       { size: "250g", price: 225 },
     ],
-    taste: ["Crispy", "Spicy", "Tangy"],
+    taste: ["Crispy", "Spicy"],
     image: "/images/papads/udid-papad.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
@@ -58,7 +58,7 @@ export const productData = [
       { size: "600g", price: 500 },
       { size: "400g", price: 300 },
     ],
-    taste: ["Crispy", "Spicy", "Sour"],
+    taste: ["Crispy", "Sour"],
     image: "/images/papads/nachani-papad.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
@@ -67,6 +67,23 @@ export const productData = [
   },
   {
     id: 5,
+    title: "Kurdai",
+    category: "Papads",
+    description:
+      "A traditional Maharashtrian dish made from rice flour, seasoned with spices and herbs, and then sun-dried to create crispy, flavorful wafers.",
+    sizeOptions: [
+      { size: "500g", price: 400 },
+      { size: "250g", price: 250 },
+    ],
+    taste: ["Crispy", "Savory"],
+    image: "/images/papads/kurdai.png",
+    idealWith: [
+      { label: "Tea Time Snack", icon: Utensils },
+      { label: "Side Dish", icon: Cookie },
+    ],
+  },
+  {
+    id: 6,
     title: "Mango Pickle",
     category: "Pickles",
     description: "Classic mango pickle with a spicy and tangy kick.",
@@ -82,7 +99,7 @@ export const productData = [
     ],
   },
   {
-    id: 6,
+    id: 7,
     title: "Garlic Pickle",
     category: "Pickles",
     description: "Rich garlic pickle with a balance of spice.",
@@ -98,7 +115,7 @@ export const productData = [
     ],
   },
   {
-    id: 7,
+    id: 8,
     title: "Lemon Pickle",
     category: "Pickles",
     description: "Zesty lemon pickle with bold tangy flavors.",
@@ -114,7 +131,7 @@ export const productData = [
     ],
   },
   {
-    id: 8,
+    id: 9,
     title: "Green Chili Pickle",
     category: "Pickles",
     description: "Hot green chili pickle for spice lovers.",
@@ -130,7 +147,7 @@ export const productData = [
     ],
   },
   {
-    id: 9,
+    id: 10,
     title: "Peanut Powder",
     category: "Powders",
     description: "Smooth peanut powder for versatile cooking.",
@@ -146,7 +163,7 @@ export const productData = [
     ],
   },
   {
-    id: 10,
+    id: 11,
     title: "Sesame Powder",
     category: "Powders",
     description: "Nutty sesame powder for added flavor.",
@@ -162,7 +179,7 @@ export const productData = [
     ],
   },
   {
-    id: 11,
+    id: 12,
     title: "Coconut Powder",
     category: "Powders",
     description: "Rich and spicy coconut powder for an extra kick.",
@@ -178,7 +195,7 @@ export const productData = [
     ],
   },
   {
-    id: 12,
+    id: 13,
     title: "Aam ka Murabba",
     category: "Powders",
     description:

@@ -42,15 +42,15 @@ const Footer = () => {
                 <Link href="/about">About Us</Link>
               </li>
               <li className="my-2 text-lg">
-                <Link href="/privacy-policy">Privacy Policy</Link>
+                <Link href="/policies/privacy-policy">Privacy Policy</Link>
               </li>
               <li className="my-2 text-lg">
-                <Link href="/return-and-refund-policy">
+                <Link href="/policies/return-policy">
                   Return, Refund Policy
                 </Link>
               </li>
               <li className="my-2 text-lg">
-                <Link href="/cookie-policy">Cookie Policy</Link>
+                <Link href="/policies/cookies">Cookie Policy</Link>
               </li>
             </ul>
           </div>

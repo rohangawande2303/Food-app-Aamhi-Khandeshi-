@@ -1,32 +1,16 @@
 "use client";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { productData } from "../products/data";
-
-// Import your cart state management (corrected import)
 import { useCart } from "../context/cartContext";
 
 export default function TopPick() {
   const [selectedSize, setSelectedSize] = useState({});
   const [showSwipeHint, setShowSwipeHint] = useState(true);
-
-  // Access the cart context (corrected hook name)
   const { addToCart } = useCart();
 
-  const getTopProducts = (category) => {
-    return productData
-      .filter((product) => product.category === category)
-      .slice(0, 2);
-  };
-
-  const papads = getTopProducts("Papads");
-  const pickles = getTopProducts("Pickles");
-  const powders = getTopProducts("Powders");
-
-  const allProducts = useMemo(
-    () => [...papads, ...pickles, ...powders],
-    [papads, pickles, powders]
-  );
+  // Filter products marked as top picks
+  const topPickProducts = productData.filter((product) => product.isTopPick);
 
   const handleAddToCart = (product, size) => {
     if (!size) {
@@ -41,7 +25,7 @@ export default function TopPick() {
       quantity: 1,
     };
 
-    addToCart(productToAdd); // Add product to cart using the context function
+    addToCart(productToAdd);
     console.log(`${product.title} with size ${size} added to cart`);
   };
 
@@ -53,7 +37,7 @@ export default function TopPick() {
   };
 
   const handleScroll = () => {
-    if (showSwipeHint) setShowSwipeHint(false); // Hide swipe hint after interaction
+    if (showSwipeHint) setShowSwipeHint(false);
   };
 
   return (
@@ -63,24 +47,21 @@ export default function TopPick() {
           Top Picks
         </h2>
 
-        {/* Swipe hint */}
         {showSwipeHint && (
           <div className="text-center text-sm text-gray-600 mb-4 animate-bounce">
             Swipe to explore →
           </div>
         )}
 
-        {/* Horizontal scroll container */}
         <div
           className="relative overflow-x-auto scrollbar-hide"
           onScroll={handleScroll}
         >
-          {/* Fading edges */}
           <div className="absolute left-0 top-0 h-full w-10 bg-gradient-to-r from-[#fdf6ed] to-transparent pointer-events-none"></div>
           <div className="absolute right-0 top-0 h-full w-10 bg-gradient-to-l from-[#fdf6ed] to-transparent pointer-events-none"></div>
 
           <div className="flex gap-6">
-            {allProducts.map((product) => (
+            {topPickProducts.map((product) => (
               <div
                 key={product.id}
                 className="flex-shrink-0 w-full sm:w-[calc(33.333%-1rem)]"
@@ -129,10 +110,7 @@ export default function TopPick() {
 
                     <button
                       onClick={() =>
-                        handleAddToCart(
-                          product,
-                          selectedSize[product.id] // Pass the selected size
-                        )
+                        handleAddToCart(product, selectedSize[product.id])
                       }
                       className="w-full bg-green-600 hover:bg-green-700 text-white text-sm sm:text-base py-2 rounded"
                     >

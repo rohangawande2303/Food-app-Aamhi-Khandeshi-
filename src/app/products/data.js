@@ -16,6 +16,7 @@ export const productData = [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: false,
   },
   {
     id: 2,
@@ -26,12 +27,13 @@ export const productData = [
       { size: "500g", price: 440 },
       { size: "250g", price: 225 },
     ],
-    taste: ["Crispy","Spicy"],
+    taste: ["Crispy", "Spicy"],
     image: "/images/papads/jwari-papad.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: false,
   },
   {
     id: 3,
@@ -48,6 +50,7 @@ export const productData = [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: true,
   },
   {
     id: 4,
@@ -64,6 +67,7 @@ export const productData = [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: false,
   },
   {
     id: 5,
@@ -81,6 +85,7 @@ export const productData = [
       { label: "Tea Time Snack", icon: Utensils },
       { label: "Side Dish", icon: Cookie },
     ],
+    isTopPick: false,
   },
   {
     id: 6,
@@ -97,6 +102,7 @@ export const productData = [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: true,
   },
   {
     id: 7,
@@ -113,6 +119,7 @@ export const productData = [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: false,
   },
   {
     id: 8,
@@ -129,6 +136,7 @@ export const productData = [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: false,
   },
   {
     id: 9,
@@ -139,12 +147,13 @@ export const productData = [
       { size: "500g", price: 400 },
       { size: "250g", price: 210 },
     ],
-    taste: ["Spicy","Sour"],
+    taste: ["Spicy", "Sour"],
     image: "/images/pickles/green-chili-pickle.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: true,
   },
   {
     id: 10,
@@ -161,6 +170,7 @@ export const productData = [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: true,
   },
   {
     id: 11,
@@ -177,6 +187,7 @@ export const productData = [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: true,
   },
   {
     id: 12,
@@ -193,6 +204,7 @@ export const productData = [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: false,
   },
   {
     id: 13,
@@ -204,11 +216,12 @@ export const productData = [
       { size: "400g", price: 240 },
       { size: "200g", price: 130 },
     ],
-    taste: ["Sweet", "Tangy",],
+    taste: ["Sweet", "Tangy"],
     image: "/images/powders/murabba-powder.png",
     idealWith: [
       { label: "Lunch/Dinner", icon: Utensils },
       { label: "Snack", icon: Cookie },
     ],
+    isTopPick: true,
   },
 ];

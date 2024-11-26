@@ -12,25 +12,33 @@ const Hero = () => {
       image: "/images/banner1.jpg",
       title: "A soulful destination of pickles, powders & savouries",
       subtitle: "Discover authentic flavors",
-      textAlign: "center", // Text alignment for the first banner
-      customPosition: "left: 50%; top: 40%; transform: translate(-50%, -50%)",
+      textAlign: "left", // Default alignment
+      customPositionDesktop:
+        "left: 10%; top: 50%; transform: translateY(-50%);",
+      customPositionMobile:
+        "left: 50%; top: 50%; transform: translate(-50%, -50%);",
       imagePosition: "50% 80%", // Horizontal 50%, Vertical 80%
     },
     {
       image: "/images/banner2.jpg",
       title: "Exciting update!",
       subtitle: "Enjoy free shipping on orders over ₹1500",
-      textAlign: "center", // Text alignment for the second banner
-      customPosition: "left: 50%; transform: translateX(-50%)", // Custom position for finer control
+      textAlign: "center", // Centered alignment
+      customPositionDesktop:
+        "left: 50%; top: 50%; transform: translate(-50%, -50%);",
+      customPositionMobile:
+        "left: 50%; top: 50%; transform: translate(-50%, -50%);",
       imagePosition: "50% 50%", // Centered
     },
     {
       image: "/images/banner3.jpg",
       title: "Authentic Mango Pickle",
       subtitle: "Made with love and traditional recipes",
-      textAlign: "left", // Text alignment for the third banner
-      customPosition: "left: 1rem; top: 10rem;", // Adjusted top position to ensure visibility
-      imagePosition: "30% 20%", // Horizontal 30%, Vertical 20%
+      textAlign: "left",
+      customPositionDesktop: "left: 1rem; top: 10rem;",
+      customPositionMobile:
+        "left: 50%; top: 50%; transform: translate(-50%, -50%);",
+      imagePosition: "30% 20%",
     },
   ];
 
@@ -77,23 +85,29 @@ const Hero = () => {
               />
               <div className="absolute inset-0 bg-black/20" />
               <div
-                className="absolute top-1/2 -translate-y-1/2 px-8 md:px-16 max-w-2xl"
+                className="absolute px-8 md:px-16 max-w-2xl"
                 style={{
                   textAlign: banner.textAlign,
-                  ...(banner.customPosition && {
+                  ...(banner.customPositionDesktop && {
                     position: "absolute",
-                    ...Object.fromEntries(
-                      banner.customPosition
-                        .split(";")
-                        .map((rule) => rule.trim().split(":"))
-                    ),
+                    ...(window.innerWidth > 768
+                      ? Object.fromEntries(
+                          banner.customPositionDesktop
+                            .split(";")
+                            .map((rule) => rule.trim().split(":"))
+                        )
+                      : Object.fromEntries(
+                          banner.customPositionMobile
+                            .split(";")
+                            .map((rule) => rule.trim().split(":"))
+                        )),
                   }),
                 }}
               >
-                <h2 className="text-2xl md:text-5xl font-bold text-white mb-4">
+                <h2 className="text-xl md:text-4xl font-bold text-white mb-2 md:mb-4">
                   {banner.title}
                 </h2>
-                <p className="text-lg md:text-2xl text-white/90">
+                <p className="text-sm md:text-lg text-white/90">
                   {banner.subtitle}
                 </p>
               </div>

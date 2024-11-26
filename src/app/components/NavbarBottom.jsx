@@ -113,27 +113,29 @@ const NavbarBottom = () => {
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {[ { href: "/", icon: <AiOutlineHome size={24} />, label: "Home" },
+            {[
+              { href: "/", icon: <AiOutlineHome size={24} />, label: "Home" },
               {
                 href: "/about",
                 icon: <PiUsersThreeLight size={24} />,
                 label: "About Us",
               },
               {
-                href: "/return-policy",
+                href: "/policies/return-policy",
                 icon: <HiOutlineReceiptRefund size={24} />,
                 label: "Return Policy",
               },
               {
-                href: "/cookies",
+                href: "/policies/cookies",
                 icon: <PiCookieThin size={24} />,
                 label: "Cookies",
               },
               {
-                href: "/privacy-policy",
+                href: "/policies/privacy-policy",
                 icon: <MdOutlinePrivacyTip size={24} />,
                 label: "Privacy Policy",
-              }, ].map(({ href, icon, label }) => (
+              },
+            ].map(({ href, icon, label }) => (
               <Link key={href} href={href}>
                 <div className="flex flex-col items-center">
                   <div className="bg-gray-100 p-3 rounded-full mb-2">
@@ -161,9 +163,11 @@ const NavbarBottom = () => {
             </button>
           </div>
           <div className="grid grid-cols-3 gap-4">
-            {[ { href: "/products/papads", image: papads, label: "Papads" },
+            {[
+              { href: "/products/papads", image: papads, label: "Papads" },
               { href: "/products/pickles", image: pickles, label: "Pickles" },
-              { href: "/products/powders", image: powders, label: "Powders" }, ].map(({ href, image, label }) => (
+              { href: "/products/powders", image: powders, label: "Powders" },
+            ].map(({ href, image, label }) => (
               <Link key={href} href={href}>
                 <div className="flex flex-col items-center">
                   <div className="bg-gray-100 p-3 rounded-full mb-2">
@@ -181,9 +185,7 @@ const NavbarBottom = () => {
       <Cart cartItems={cartItems} isOpen={cartOpen} onClose={toggleCart} />
 
       {/* Search Modal */}
-      {showSearch && (
-        <SearchModal isOpen={showSearch} onClose={toggleSearch} />
-      )}
+      {showSearch && <SearchModal isOpen={showSearch} onClose={toggleSearch} />}
     </>
   );
 };

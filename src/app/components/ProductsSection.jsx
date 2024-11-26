@@ -7,15 +7,17 @@ import powdersImage from "../../images/powders.svg";
 
 const ProductsSection = () => {
   const [isMobile, setIsMobile] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const handleResize = () => setIsMobile(window.innerWidth < 768);
-      handleResize(); // Initialize state on mount
-      window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
-    }
+    setIsMounted(true);
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  if (!isMounted) return null; // Prevent SSR issues
 
   return (
     <section className="py-12 bg-[#f7f0dd]">
@@ -35,21 +37,21 @@ const ProductsSection = () => {
           id="1"
           name="Pickles"
           image={picklesImage}
-          link="/products/pickles" // Link to Pickles page
+          link="/products/pickles"
           isMobile={isMobile}
         />
         <ProductCard
           id="2"
           name="Powders"
           image={powdersImage}
-          link="/products/powders" // Link to Powders page
+          link="/products/powders"
           isMobile={isMobile}
         />
         <ProductCard
           id="3"
           name="Papads"
           image={papadImage}
-          link="/products/papads" // Link to Papads page
+          link="/products/papads"
           isMobile={isMobile}
         />
       </div>

@@ -9,24 +9,19 @@ const ProductsSection = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Check if window.matchMedia is available
-    if (typeof window !== "undefined") {
-      const mediaQuery = window.matchMedia("(max-width: 768px)");
+    // Check screen width using window only after component mounts
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
 
-      const handleMediaQueryChange = (e) => {
-        setIsMobile(e.matches);
-      };
+    // Run initial check
+    checkMobile();
 
-      // Initial check
-      setIsMobile(mediaQuery.matches);
+    // Add resize listener
+    window.addEventListener("resize", checkMobile);
 
-      // Add listener
-      mediaQuery.addEventListener("change", handleMediaQueryChange);
-
-      // Cleanup listener on unmount
-      return () =>
-        mediaQuery.removeEventListener("change", handleMediaQueryChange);
-    }
+    // Cleanup listener
+    return () => window.removeEventListener("resize", checkMobile);
   }, []);
 
   return (

@@ -44,8 +44,10 @@ export const CartProvider = ({ children }) => {
     }
   }, [cartItems]);
 
+  // Function to toggle cart visibility
   const toggleCart = () => setIsCartOpen((prev) => !prev);
 
+  // Function to add an item to the cart
   const addToCart = (product) => {
     setCartItems((prevItems) => {
       const existingProduct = prevItems.find((item) => item.id === product.id);
@@ -59,6 +61,7 @@ export const CartProvider = ({ children }) => {
     });
   };
 
+  // Function to update the quantity of a product
   const updateQuantity = (productId, newCount) => {
     setCartItems(
       (prevItems) =>
@@ -72,6 +75,12 @@ export const CartProvider = ({ children }) => {
     );
   };
 
+  // Function to remove an item from the cart
+  const removeItem = (id) => {
+    setCartItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+
+  // Function to remove all items of a specific product from the cart
   const removeFromCart = (productId) => {
     setCartItems((prevItems) =>
       prevItems.filter((item) => item.id !== productId)
@@ -85,6 +94,7 @@ export const CartProvider = ({ children }) => {
         addToCart,
         updateQuantity,
         removeFromCart,
+        removeItem, // Include the removeItem function in the context value
         isCartOpen,
         toggleCart,
         isLoaded,

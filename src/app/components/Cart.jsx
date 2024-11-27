@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useCart } from "../context/cartContext";
 import Image from "next/image";
+import { Trash2 } from "lucide-react"; // Importing the Trash icon
 
 const useMediaQuery = (query) => {
   const [matches, setMatches] = useState(false);
@@ -21,7 +22,7 @@ const useMediaQuery = (query) => {
 };
 
 const Cart = ({ isOpen, onClose }) => {
-  const { cartItems, updateQuantity } = useCart();
+  const { cartItems, updateQuantity, removeItem } = useCart(); // Added removeItem function
   const isMobile = useMediaQuery("(max-width: 768px)");
   const router = useRouter();
 
@@ -91,11 +92,11 @@ const Cart = ({ isOpen, onClose }) => {
                 <div className="flex-1 ml-4">
                   {/* Product Name */}
                   <h2 className="text-lg font-semibold text-black">
-                    {item.title || item.name} {/* Fallback to item.name if title doesn't exist */}
+                    {item.title || item.name}
                   </h2>
                 </div>
 
-                {/* Pricing & Quantity Controls */}
+                {/* Pricing, Quantity Controls & Delete */}
                 <div className="text-right">
                   {/* Unit Price */}
                   <p className="text-sm text-gray-600">Unit Price</p>
@@ -122,6 +123,15 @@ const Cart = ({ isOpen, onClose }) => {
                   <p className="font-semibold text-lg text-green-600 mt-2">
                     ₹{item.price * item.count}
                   </p>
+
+                  {/* Delete Icon */}
+                  <button
+                    onClick={() => removeItem(item.id)} // Delete functionality
+                    className="mt-2 text-red-500 hover:text-red-700"
+                    aria-label="Remove item"
+                  >
+                    <Trash2 size={20} />
+                  </button>
                 </div>
               </li>
             ))}

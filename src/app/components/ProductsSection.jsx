@@ -7,25 +7,31 @@ import powdersImage from "../../images/powders.svg";
 
 const ProductsSection = () => {
   const [isMobile, setIsMobile] = useState(false);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
-    const handleResize = () => setIsMobile(window.innerWidth < 768);
-    handleResize();
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+    // Use matchMedia for more reliable mobile detection
+    const mediaQuery = window.matchMedia("(max-width: 768px)");
 
-  if (!isMounted) return null; // Prevent SSR issues
+    const handleMediaQueryChange = (e) => {
+      setIsMobile(e.matches);
+    };
+
+    // Initial check
+    setIsMobile(mediaQuery.matches);
+
+    // Add listener
+    mediaQuery.addEventListener("change", handleMediaQueryChange);
+
+    // Cleanup
+    return () =>
+      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+  }, []);
 
   return (
     <section className="py-12 bg-[#f7f0dd]">
-      {!isMobile && (
-        <h2 className="text-5xl font-bold text-center mb-20 mt-4">
-          Explore Aamhi Khandeshi Food
-        </h2>
-      )}
+      <h2 className={`text-5xl font-bold text-center mb-20 mt-4 max-md:hidden`}>
+        Explore Aamhi Khandeshi Food
+      </h2>
       <div
         className={`${
           isMobile

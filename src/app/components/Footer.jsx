@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FaFacebook, FaInstagram } from "react-icons/fa";
 import { FiPhone } from "react-icons/fi";
 import { AiOutlineMail } from "react-icons/ai";
+import { FaWhatsapp } from "react-icons/fa";
 
 const Footer = () => {
   return (
@@ -78,7 +79,7 @@ const Footer = () => {
 
               {/* Social Media Icons */}
               <li className="mt-8">
-                <ul className="flex justify-center gap-6 md:gap-6 items-center">
+                <ul className="flex justify-center gap-6 items-center">
                   <li>
                     <a
                       className="flex items-center justify-center w-10 h-10 text-xl rounded-full border border-white transition-all duration-300 hover:bg-[#d18334]"
@@ -97,6 +98,16 @@ const Footer = () => {
                       rel="noopener noreferrer"
                     >
                       <FaInstagram className="w-5 h-5 text-white" />
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      className="flex items-center justify-center w-10 h-10 text-xl rounded-full border border-white transition-all duration-300 hover:bg-[#d18334]"
+                      href="https://api.whatsapp.com/send?phone=9987393833&text=I%20came%20across%20your%20website%20,I%20would%20like%20to%20have%20more%20information%20about%20your%20business"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FaWhatsapp className="w-5 h-5 text-white" />
                     </a>
                   </li>
                 </ul>

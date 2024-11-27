@@ -1,31 +1,46 @@
-"use client"; // Make sure the code is only run on the client-side
+"use client"; // Ensure this runs only on the client-side
 
 import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
-export const useCart = () => useContext(CartContext);
+// Custom hook for accessing the cart context
+export const useCart = () => {
+  const context = useContext(CartContext);
+  if (!context) {
+    throw new Error("useCart must be used within a CartProvider");
+  }
+  return context;
+};
 
 export const CartProvider = ({ children }) => {
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
+  // Initialize cart from localStorage on mount
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Client-side code: Initialize cart from localStorage
-      const storedCart = localStorage.getItem("cartItems");
-      if (storedCart) {
-        setCartItems(JSON.parse(storedCart));
+      try {
+        const storedCart = localStorage.getItem("cartItems");
+        if (storedCart) {
+          setCartItems(JSON.parse(storedCart));
+        }
+      } catch (error) {
+        console.error("Failed to parse cart items from localStorage", error);
       }
       setIsLoaded(true);
     }
   }, []);
 
+  // Sync cart with localStorage whenever cartItems change
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // Client-side code: Sync cart with localStorage whenever cartItems change
-      localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      try {
+        localStorage.setItem("cartItems", JSON.stringify(cartItems));
+      } catch (error) {
+        console.error("Failed to save cart items to localStorage", error);
+      }
     }
   }, [cartItems]);
 
@@ -50,10 +65,10 @@ export const CartProvider = ({ children }) => {
         prevItems
           .map((item) =>
             item.id === productId
-              ? { ...item, count: Math.max(newCount, 0) }
+              ? { ...item, count: Math.max(newCount, 0) } // Prevent negative counts
               : item
           )
-          .filter((item) => item.count > 0) // Filter out items with zero count
+          .filter((item) => item.count > 0) // Remove items with zero count
     );
   };
 

@@ -9,27 +9,29 @@ const ProductsSection = () => {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // Use matchMedia for more reliable mobile detection
-    const mediaQuery = window.matchMedia("(max-width: 768px)");
+    // Check if window.matchMedia is available
+    if (typeof window !== "undefined") {
+      const mediaQuery = window.matchMedia("(max-width: 768px)");
 
-    const handleMediaQueryChange = (e) => {
-      setIsMobile(e.matches);
-    };
+      const handleMediaQueryChange = (e) => {
+        setIsMobile(e.matches);
+      };
 
-    // Initial check
-    setIsMobile(mediaQuery.matches);
+      // Initial check
+      setIsMobile(mediaQuery.matches);
 
-    // Add listener
-    mediaQuery.addEventListener("change", handleMediaQueryChange);
+      // Add listener
+      mediaQuery.addEventListener("change", handleMediaQueryChange);
 
-    // Cleanup
-    return () =>
-      mediaQuery.removeEventListener("change", handleMediaQueryChange);
+      // Cleanup listener on unmount
+      return () =>
+        mediaQuery.removeEventListener("change", handleMediaQueryChange);
+    }
   }, []);
 
   return (
     <section className="py-12 bg-[#f7f0dd]">
-      <h2 className={`text-5xl font-bold text-center mb-20 mt-4 max-md:hidden`}>
+      <h2 className="text-5xl font-bold text-center mb-20 mt-4 max-md:hidden">
         Explore Aamhi Khandeshi Food
       </h2>
       <div

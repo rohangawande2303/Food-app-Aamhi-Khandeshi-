@@ -1,5 +1,4 @@
-// layout.jsx
-import { CartProvider } from "./context/cartContext"; // Import CartProvider
+import { CartProvider } from "./context/cartContext";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import NavbarTop from "./components/NavbarTop";
@@ -12,7 +11,7 @@ const roboto = Roboto({
 });
 
 export const metadata = {
-  title: "Online Food store for Homemade Pickles, Papad",
+  title: "Online Food Store for Homemade Pickles, Papad",
   description: "Aamhi Khandeshi - Authentic Maharashtrian Food",
 };
 
@@ -21,13 +20,10 @@ export default function Layout({ children }) {
     <CartProvider>
       <html lang="en">
         <body className={roboto.className}>
-          <div>
-            {/* The cart context will be available here */}
-            <NavbarTop />
-            <main>{children}</main>
-            <Footer />
-            <NavbarBottom />
-          </div>
+          <NavbarTop />
+          <main>{children}</main>
+          <Footer />
+          <NavbarBottom />
         </body>
       </html>
     </CartProvider>

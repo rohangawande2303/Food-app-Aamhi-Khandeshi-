@@ -1,38 +1,32 @@
 "use client";
-
 import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
 
-export const useCart = () => {
-  return useContext(CartContext);
-};
+export const useCart = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
-  // Initialize with empty array and update after mount
   const [cartItems, setCartItems] = useState([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load cart items from localStorage after component mount
   useEffect(() => {
-    const storedCart = localStorage.getItem("cartItems");
-    if (storedCart) {
-      setCartItems(JSON.parse(storedCart));
+    if (typeof window !== "undefined") {
+      const storedCart = localStorage.getItem("cartItems");
+      if (storedCart) {
+        setCartItems(JSON.parse(storedCart));
+      }
+      setIsLoaded(true);
     }
-    setIsLoaded(true);
   }, []);
 
-  // Save cart items to localStorage whenever they change
   useEffect(() => {
-    if (isLoaded) {
+    if (typeof window !== "undefined") {
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }
-  }, [cartItems, isLoaded]);
+  }, [cartItems]);
 
-  const toggleCart = () => {
-    setIsCartOpen((prevState) => !prevState);
-  };
+  const toggleCart = () => setIsCartOpen((prev) => !prev);
 
   const addToCart = (product) => {
     setCartItems((prevItems) => {
@@ -65,16 +59,15 @@ export const CartProvider = ({ children }) => {
     );
   };
 
-  // Always render the Provider, even during loading
   return (
     <CartContext.Provider
       value={{
-        cartItems: isLoaded ? cartItems : [],
-        addToCart: isLoaded ? addToCart : () => {},
-        updateQuantity: isLoaded ? updateQuantity : () => {},
-        removeFromCart: isLoaded ? removeFromCart : () => {},
+        cartItems,
+        addToCart,
+        updateQuantity,
+        removeFromCart,
         isCartOpen,
-        toggleCart: isLoaded ? toggleCart : () => {},
+        toggleCart,
         isLoaded,
       }}
     >

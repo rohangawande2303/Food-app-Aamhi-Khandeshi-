@@ -1,4 +1,5 @@
-"use client";
+"use client"; // Make sure the code is only run on the client-side
+
 import { createContext, useContext, useState, useEffect } from "react";
 
 const CartContext = createContext();
@@ -12,6 +13,7 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      // Client-side code: Initialize cart from localStorage
       const storedCart = localStorage.getItem("cartItems");
       if (storedCart) {
         setCartItems(JSON.parse(storedCart));
@@ -22,6 +24,7 @@ export const CartProvider = ({ children }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
+      // Client-side code: Sync cart with localStorage whenever cartItems change
       localStorage.setItem("cartItems", JSON.stringify(cartItems));
     }
   }, [cartItems]);
@@ -42,14 +45,15 @@ export const CartProvider = ({ children }) => {
   };
 
   const updateQuantity = (productId, newCount) => {
-    setCartItems((prevItems) =>
-      prevItems
-        .map((item) =>
-          item.id === productId
-            ? { ...item, count: Math.max(newCount, 0) }
-            : item
-        )
-        .filter((item) => item.count > 0)
+    setCartItems(
+      (prevItems) =>
+        prevItems
+          .map((item) =>
+            item.id === productId
+              ? { ...item, count: Math.max(newCount, 0) }
+              : item
+          )
+          .filter((item) => item.count > 0) // Filter out items with zero count
     );
   };
 

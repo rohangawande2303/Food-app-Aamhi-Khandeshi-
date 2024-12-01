@@ -69,34 +69,34 @@ const NavbarBottom = () => {
   return (
     <>
       {/* Bottom Navbar */}
-      <div className="fixed bottom-0 w-full bg-[#F7EDE4] h-12 rounded-tl-[10px] rounded-tr-[10px] shadow-md md:hidden z-50">
-        <div className="flex justify-around items-center py-1">
+      <div className="fixed bottom-0 w-full bg-[#F7EDE4] h-16 rounded-tl-[10px] rounded-tr-[10px] shadow-md md:hidden z-50">
+        <div className="flex justify-around items-center pb-1 pt-3">
           <button
             onClick={toggleExplore}
             className="text-center justify-items-center"
           >
-            <CircleEllipsis size={18} />
+            <CircleEllipsis size={20} />
             <p className="text-xs mt-1">Explore</p>
           </button>
           <button
             onClick={toggleSearch}
             className="text-center relative justify-items-center"
           >
-            <Search size={18} />
+            <Search size={20} />
             <p className="text-xs mt-1">Search</p>
           </button>
           <button
             onClick={toggleShop}
             className="text-center justify-items-center"
           >
-            <SquareChevronUp size={18} />
+            <SquareChevronUp size={20} />
             <p className="text-xs mt-1">Shop</p>
           </button>
           <button
             onClick={toggleCart}
             className="relative text-center justify-items-center"
           >
-            <ShoppingCart size={18} />
+            <ShoppingCart size={20} />
             <p className="text-xs mt-1">Cart</p>
             {totalCartQuantity > 0 && (
               <span className="absolute top-0 right-0 bg-red-500 text-white rounded-full text-xs px-1">
@@ -105,7 +105,7 @@ const NavbarBottom = () => {
             )}
           </button>
           <Link href="/login" className="text-center justify-items-center">
-            <User size={18} />
+            <User size={20} />
             <p className="text-xs mt-1">Profile</p>
           </Link>
         </div>

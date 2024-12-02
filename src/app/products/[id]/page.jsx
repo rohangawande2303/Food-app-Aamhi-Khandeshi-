@@ -10,6 +10,7 @@ import {
   Utensils,
 } from "lucide-react";
 import { productData } from "../data"; // Import data from data.js
+import { useCart } from "../../context/cartContext"; // Import the useCart hook
 
 const iconMap = {
   breakfast: Coffee,
@@ -57,8 +58,8 @@ function ProductImageCarousel({ images }) {
   );
 }
 
-function SizeSelector({ options, onSelect }) {
-  const [selectedSize, setSelectedSize] = useState(options[0].size);
+function SizeSelector({ options, onSelect, initialSize }) {
+  const [selectedSize, setSelectedSize] = useState(initialSize);
 
   const handleSelect = (size) => {
     setSelectedSize(size);
@@ -130,9 +131,26 @@ function IdealWith({ items }) {
 
 function AddToCartButton({ product, selectedSize }) {
   const [quantity, setQuantity] = useState(1);
+  const { addToCart, updateQuantity } = useCart();
 
-  const addToCart = () => {
-    console.log(`Added ${quantity} ${product.title} (${selectedSize}) to cart`);
+  const handleAddToCart = () => {
+    // Find the price for the selected size
+    const selectedSizeOption =
+      product.sizeOptions.find((option) => option.size === selectedSize) ||
+      product.sizeOptions[0];
+
+    // Create a cart item with the selected size and current quantity
+    const cartItem = {
+      id: product.id,
+      title: product.title,
+      image: product.image || product.images[0],
+      selectedSize: selectedSize,
+      count: quantity,
+      price: selectedSizeOption.price,
+    };
+
+    addToCart(cartItem);
+    updateQuantity(product.id, quantity); // Ensure the correct quantity is updated in the cart
   };
 
   return (
@@ -153,7 +171,7 @@ function AddToCartButton({ product, selectedSize }) {
         </button>
       </div>
       <button
-        onClick={addToCart}
+        onClick={handleAddToCart}
         className="bg-[#8B4513] text-white px-6 py-3 rounded-full flex items-center gap-2 hover:bg-[#A0522D] transition-colors"
       >
         <ShoppingCart className="w-5 h-5" />
@@ -164,11 +182,9 @@ function AddToCartButton({ product, selectedSize }) {
 }
 
 export default function ProductDetails({ params }) {
-  // Add console logs for debugging
   console.log("URL Product ID:", params.id);
   console.log("Product Data:", productData);
 
-  // Try different matching strategies
   const product = productData.find(
     (p) =>
       p.id.toString() === params.id ||
@@ -216,6 +232,7 @@ export default function ProductDetails({ params }) {
               <SizeSelector
                 options={product.sizeOptions}
                 onSelect={setSelectedSize}
+                initialSize={product.sizeOptions[0].size}
               />
               <TasteProfile tastes={product.taste} />
               <IdealWith items={product.idealWith} />

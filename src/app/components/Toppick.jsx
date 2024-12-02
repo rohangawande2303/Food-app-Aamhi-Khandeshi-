@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { productData } from "../products/data";
 import { useCart } from "../context/cartContext";
 
@@ -62,11 +63,12 @@ export default function TopPick() {
 
           <div className="flex gap-6">
             {topPickProducts.map((product) => (
-              <div
+              <Link
                 key={product.id}
+                href={`/products/${product.id}`}
                 className="flex-shrink-0 w-full sm:w-[calc(33.333%-1rem)]"
               >
-                <div className="bg-white rounded-lg overflow-hidden shadow-md h-full flex flex-col">
+                <div className="bg-white rounded-lg overflow-hidden shadow-md h-full flex flex-col cursor-pointer">
                   <div className="relative h-48 sm:h-64">
                     <Image
                       src={product.image}
@@ -82,7 +84,6 @@ export default function TopPick() {
                     <p className="text-gray-600 text-center text-xs sm:text-sm mb-4 flex-grow">
                       {product.description}
                     </p>
-
                     <div className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-4 sm:mb-6">
                       {product.sizeOptions.map((option, index) => (
                         <div
@@ -107,18 +108,18 @@ export default function TopPick() {
                         </div>
                       ))}
                     </div>
-
                     <button
-                      onClick={() =>
-                        handleAddToCart(product, selectedSize[product.id])
-                      }
+                      onClick={(e) => {
+                        e.stopPropagation(); // Prevent navigation
+                        handleAddToCart(product, selectedSize[product.id]);
+                      }}
                       className="w-full bg-green-600 hover:bg-green-700 text-white text-sm sm:text-base py-2 rounded"
                     >
                       Add to Cart
                     </button>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>

@@ -21,6 +21,7 @@ import pickles from "../../images/pickles.svg";
 import powders from "../../images/powders.svg";
 import { useCart } from "../context/cartContext";
 import SearchModal from "./SearchModal";
+import { useUser, useClerk } from "@clerk/nextjs"; // Import Clerk hooks for authentication
 
 const NavbarBottom = () => {
   const [showExplore, setShowExplore] = useState(false);
@@ -29,6 +30,8 @@ const NavbarBottom = () => {
   const [cartOpen, setCartOpen] = useState(false);
 
   const { cartItems } = useCart();
+  const { user, isSignedIn } = useUser(); // Get user data and signed-in status from Clerk
+  const { signOut } = useClerk(); // Get the signOut function
 
   // Calculate total quantity of items in the cart
   const totalCartQuantity = cartItems.reduce(
@@ -54,6 +57,17 @@ const NavbarBottom = () => {
     setShowShop(false);
   };
 
+  const toggleCart = () => {
+    setCartOpen((prev) => !prev);
+  };
+
+  // Handle user profile click (redirect to profile if signed in)
+  const handleProfileClick = () => {
+    if (isSignedIn) {
+      window.location.href = "/profile"; // Redirect to profile page
+    }
+  };
+
   useEffect(() => {
     const isPopupOpen = showExplore || showShop || showSearch;
     document.body.style.overflow = isPopupOpen ? "hidden" : "visible";
@@ -61,10 +75,6 @@ const NavbarBottom = () => {
       document.body.style.overflow = "visible";
     };
   }, [showExplore, showShop, showSearch]);
-
-  const toggleCart = () => {
-    setCartOpen((prev) => !prev);
-  };
 
   return (
     <>
@@ -104,10 +114,21 @@ const NavbarBottom = () => {
               </span>
             )}
           </button>
-          <Link href="/login" className="text-center justify-items-center">
-            <User size={20} />
-            <p className="text-xs mt-1">Profile</p>
-          </Link>
+          {/* Profile or Sign-In Button */}
+          {isSignedIn ? (
+            <div
+              onClick={handleProfileClick}
+              className="text-center justify-items-center cursor-pointer"
+            >
+              <User size={20} />
+              <p className="text-xs mt-1">{user.firstName}</p>
+            </div>
+          ) : (
+            <Link href="/sign-in" className="text-center justify-items-center">
+              <User size={20} />
+              <p className="text-xs mt-1">Profile</p>
+            </Link>
+          )}
         </div>
       </div>
 

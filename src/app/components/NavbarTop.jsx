@@ -5,11 +5,14 @@ import { useCart } from "../context/cartContext";
 import Cart from "./Cart";
 import { Search, ShoppingCart, User } from "lucide-react";
 import SearchModal from "./SearchModal";
+import { useUser, useClerk } from "@clerk/nextjs"; // Import Clerk hooks
 
 const NavbarTop = () => {
   const { cartItems } = useCart();
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
+  const { user, isSignedIn } = useUser(); // Get user data and signed-in status
+  const { signOut } = useClerk(); // Get the signOut function to log out the user
 
   const toggleCart = () => setCartOpen(!cartOpen);
   const toggleSearch = () => setSearchOpen(!searchOpen);
@@ -20,9 +23,16 @@ const NavbarTop = () => {
     { name: "Papads", href: "/products/papads" },
   ];
 
+  const handleProfileClick = () => {
+    // If the user is logged in, redirect to the profile page
+    if (isSignedIn) {
+      window.location.href = "/profile";
+    }
+  };
+
   return (
     <>
-      {/* Navbar */}
+      {/* Navbar for Mobile */}
       <nav className="flex md:hidden justify-center items-center bg-white fixed top-0 left-0 right-0 h-12 z-50">
         <div className="text-center">
           <Link href="/">
@@ -32,6 +42,8 @@ const NavbarTop = () => {
           </Link>
         </div>
       </nav>
+
+      {/* Navbar for Desktop */}
       <nav className="hidden md:flex justify-around items-center px-10 py-3 bg-white shadow-lg fixed top-0 left-0 right-0 z-50">
         <div className="logo">
           <Link href="/">
@@ -70,10 +82,22 @@ const NavbarTop = () => {
               </span>
             )}
           </button>
-          <Link href="/login" className="flex flex-col items-center">
-            <User size={23} />
-            <p className="text-xs mt-1 text-center">Join</p>
-          </Link>
+
+          {/* Conditional Rendering: Display user's name if signed in, otherwise show 'Join' */}
+          {isSignedIn ? (
+            <div
+              onClick={handleProfileClick}
+              className="flex flex-col items-center cursor-pointer"
+            >
+              <User size={23} />
+              <p className="text-xs mt-1 text-center">{user.firstName}</p>
+            </div>
+          ) : (
+            <Link href="/sign-in" className="flex flex-col items-center">
+              <User size={23} />
+              <p className="text-xs mt-1 text-center">Join</p>
+            </Link>
+          )}
         </div>
       </nav>
 

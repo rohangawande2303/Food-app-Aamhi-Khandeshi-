@@ -1,20 +1,21 @@
 "use client";
 
 import React, { useState } from "react";
-import { productData } from "../data"; // Assuming this is where the data for papads will be fetched
+import { useProducts } from "../../hooks/useProducts";
 import ItemCard from "../../components/ItemCard"; // Import the ItemCard component
 
 const PapadPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     Crispy: false,
-    Spicy: false, 
+    Spicy: false,
     Mild: false,
   });
 
+  const { products, loading } = useProducts("Papads");
+
   // Filter the product data by category 'Papads' and apply the search and taste filters
-  const filteredProducts = productData
-    .filter((product) => product.category === "Papads") // Filter by category first
+  const filteredProducts = products
     .filter((product) => {
       // Check for search term
       const matchesSearch = product.title
@@ -29,6 +30,8 @@ const PapadPage = () => {
 
       return matchesSearch && matchesFilters;
     });
+
+  if (loading) return <div className="text-center py-10">Loading Papads...</div>;
 
   return (
     <div className="bg-[#faf3ed] min-h-screen">
@@ -86,8 +89,8 @@ const PapadPage = () => {
             <div className="space-y-6">
               {filteredProducts.map((product) => (
                 <div key={product.id}>
-                  {/* Pass product.id to ItemCard */}
-                  <ItemCard productId={product.id} />
+                  {/* Pass product to ItemCard */}
+                  <ItemCard product={product} />
                 </div>
               ))}
             </div>

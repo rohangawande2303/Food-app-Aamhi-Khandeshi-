@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { productData } from "../data"; // Ensure correct import path
+import { useProducts } from "../../hooks/useProducts";
 import ItemCard from "../../components/ItemCard"; // Import ItemCard component
 
 const PicklesPage = () => {
@@ -13,9 +13,10 @@ const PicklesPage = () => {
     Spicy: false,
   });
 
+  const { products, loading } = useProducts("Pickles");
+
   // Filter the product data by category 'Pickles' and apply the search and taste filters
-  const filteredProducts = productData
-    .filter((product) => product.category === "Pickles") // Filter by category
+  const filteredProducts = products
     .filter((product) => {
       // Check for search term
       const matchesSearch = product.title
@@ -33,6 +34,8 @@ const PicklesPage = () => {
 
       return matchesSearch && matchesFilters;
     });
+
+  if (loading) return <div className="text-center py-10">Loading Pickles...</div>;
 
   return (
     <div className="bg-[#faf3ed] min-h-screen">
@@ -91,7 +94,7 @@ const PicklesPage = () => {
               {filteredProducts.length > 0 ? (
                 filteredProducts.map((product) => (
                   <div key={product.id}>
-                    <ItemCard productId={product.id} />
+                    <ItemCard product={product} />
                   </div>
                 ))
               ) : (

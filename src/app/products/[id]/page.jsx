@@ -1,20 +1,23 @@
 "use client";
 
-import { useState } from "react";
-import Image from "next/image";
+import { useState, useEffect } from "react";
+// import Image from "next/image";
 import {
   ChevronLeft,
   ChevronRight,
   ShoppingCart,
   Coffee,
   Utensils,
+  Cookie,
 } from "lucide-react";
-import { productData } from "../data"; // Import data from data.js
 import { useCart } from "../../context/cartContext"; // Import the useCart hook
+import { db } from "../../firebase/config";
+import { doc, getDoc } from "firebase/firestore";
 
 const iconMap = {
   breakfast: Coffee,
   lunch: Utensils,
+  snack: Cookie, // Add mapping for snack
 };
 
 function ProductImageCarousel({ images }) {
@@ -32,11 +35,10 @@ function ProductImageCarousel({ images }) {
 
   return (
     <div className="relative h-96">
-      <Image
+      <img
         src={images[currentIndex]}
         alt={`Product image ${currentIndex + 1}`}
-        layout="fill"
-        objectFit="cover"
+        className="w-full h-full object-cover"
       />
       {images.length > 1 && (
         <>
@@ -76,11 +78,10 @@ function SizeSelector({ options, onSelect, initialSize }) {
           <button
             key={option.size}
             onClick={() => handleSelect(option.size)}
-            className={`px-4 py-2 rounded-full ${
-              selectedSize === option.size
-                ? "bg-[#8B4513] text-white"
-                : "bg-[#FDF6ED] text-[#8B4513] hover:bg-[#DEB887]"
-            }`}
+            className={`px-4 py-2 rounded-full ${selectedSize === option.size
+              ? "bg-[#8B4513] text-white"
+              : "bg-[#FDF6ED] text-[#8B4513] hover:bg-[#DEB887]"
+              }`}
           >
             {option.size} - ₹{option.price}
           </button>
@@ -143,7 +144,7 @@ function AddToCartButton({ product, selectedSize }) {
     const cartItem = {
       id: product.id,
       title: product.title,
-      image: product.image || product.images[0],
+      image: product.image || product.images?.[0],
       selectedSize: selectedSize,
       count: quantity,
       price: selectedSizeOption.price,
@@ -182,21 +183,50 @@ function AddToCartButton({ product, selectedSize }) {
 }
 
 export default function ProductDetails({ params }) {
-  console.log("URL Product ID:", params.id);
-  console.log("Product Data:", productData);
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [selectedSize, setSelectedSize] = useState("");
 
-  const product = productData.find(
-    (p) =>
-      p.id.toString() === params.id ||
-      p.id === params.id ||
-      p.id === parseInt(params.id)
-  );
+  useEffect(() => {
+    const fetchProduct = async () => {
+      setLoading(true);
+      try {
+        // Try to fetch by ID directly (if ID is string)
+        let docRef = doc(db, "products", params.id);
+        let docSnap = await getDoc(docRef);
 
-  console.log("Found Product:", product);
+        if (docSnap.exists()) {
+          setProduct({ id: docSnap.id, ...docSnap.data() });
+        } else {
+          // If not found, maybe it's because we used numeric IDs in seeding but params.id is string?
+          // But Firestore IDs are strings. If we seeded with addDoc, they are auto-generated strings.
+          // If we seeded using setDoc with custom ID, they are what we set.
+          // In AdminPage, I used addDoc, so IDs are auto-generated.
+          // BUT, the initial data had numeric IDs.
+          // If the user clicks on a product from the list, it will use the Firestore ID.
+          // So this should be fine.
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error("Error fetching product:", error);
+      }
+      setLoading(false);
+    };
 
-  const [selectedSize, setSelectedSize] = useState(
-    product?.sizeOptions?.[0]?.size || ""
-  );
+    if (params.id) {
+      fetchProduct();
+    }
+  }, [params.id]);
+
+  useEffect(() => {
+    if (product && product.sizeOptions && product.sizeOptions.length > 0) {
+      setSelectedSize(product.sizeOptions[0].size);
+    }
+  }, [product]);
+
+  if (loading) {
+    return <div className="text-center text-2xl mt-8">Loading...</div>;
+  }
 
   if (!product) {
     return <div className="text-center text-2xl mt-8">Product not found</div>;
@@ -212,11 +242,10 @@ export default function ProductDetails({ params }) {
                 <ProductImageCarousel images={product.images} />
               ) : (
                 <div className="relative h-[35rem]">
-                  <Image
-                    src={product.image || product.images[0]}
+                  <img
+                    src={product.image || (product.images && product.images[0])}
                     alt={product.title}
-                    layout="fill"
-                    objectFit="cover"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               )}
@@ -229,13 +258,15 @@ export default function ProductDetails({ params }) {
                 {product.description}
               </p>
 
-              <SizeSelector
-                options={product.sizeOptions}
-                onSelect={setSelectedSize}
-                initialSize={product.sizeOptions[0].size}
-              />
-              <TasteProfile tastes={product.taste} />
-              <IdealWith items={product.idealWith} />
+              {product.sizeOptions && (
+                <SizeSelector
+                  options={product.sizeOptions}
+                  onSelect={setSelectedSize}
+                  initialSize={product.sizeOptions[0].size}
+                />
+              )}
+              {product.taste && <TasteProfile tastes={product.taste} />}
+              {product.idealWith && <IdealWith items={product.idealWith} />}
 
               <AddToCartButton product={product} selectedSize={selectedSize} />
             </div>

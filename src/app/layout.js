@@ -6,9 +6,8 @@ import { Roboto } from "next/font/google";
 import NavbarTop from "./components/NavbarTop";
 import NavbarBottom from "./components/NavbarBottom";
 import Footer from "./components/Footer";
-
-// Clerk imports
-import { ClerkProvider, RedirectToSignUp } from "@clerk/nextjs"; // Import ClerkProvider and RedirectToSignUp
+import { AuthProvider } from "./context/AuthContext";
+import { FavoritesProvider } from "./context/favoritesContext";
 
 // Dynamically load CartProvider to avoid SSR issues
 const CartProvider = dynamic(
@@ -23,7 +22,7 @@ const roboto = Roboto({
 
 export default function Layout({ children }) {
   return (
-    <ClerkProvider>
+    <AuthProvider>
       <html lang="en">
         <head>
           <meta
@@ -32,16 +31,16 @@ export default function Layout({ children }) {
           />
         </head>
         <body className={roboto.className}>
-          <CartProvider>
-            {/* Redirect to SignUp page if user is not authenticated */}
-            <RedirectToSignUp />
-            <NavbarTop />
-            <main>{children}</main>
-            <Footer />
-            <NavbarBottom />
-          </CartProvider>
+          <FavoritesProvider>
+            <CartProvider>
+              <NavbarTop />
+              <main>{children}</main>
+              <Footer />
+              <NavbarBottom />
+            </CartProvider>
+          </FavoritesProvider>
         </body>
       </html>
-    </ClerkProvider>
+    </AuthProvider>
   );
 }

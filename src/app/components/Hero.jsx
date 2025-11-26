@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const Hero = () => {
@@ -59,88 +60,112 @@ const Hero = () => {
   };
 
   return (
-    <div className="relative h-[40vh] md:h-[50vh] overflow-hidden">
+    <div className="relative h-[50vh] md:h-[70vh] overflow-hidden bg-[#f7f0dd]">
       {/* Carousel */}
-      <div
-        className="relative h-full transition-transform duration-700 ease-in-out"
-        style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-      >
-        <div
-          className="absolute top-0 left-0 flex h-full"
-          style={{ width: `${banners.length * 100}%` }}
-        >
-          {banners.map((banner, index) => (
-            <div
-              key={index}
-              className="relative h-full"
-              style={{ width: `${100 / banners.length}%` }}
-            >
-              <Image
-                src={banner.image}
-                alt={`Banner ${index + 1}`}
-                fill
-                priority={index === 0}
-                className="object-cover"
-                style={{ objectPosition: banner.imagePosition }} // Apply the position
-              />
-              <div className="absolute inset-0 bg-black/20" />
+      <div className="relative h-full w-full">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentSlide}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7 }}
+            className="absolute inset-0"
+          >
+            <Image
+              src={banners[currentSlide].image}
+              alt={banners[currentSlide].title}
+              fill
+              priority
+              className="object-cover"
+              style={{ objectPosition: banners[currentSlide].imagePosition }}
+            />
+            {/* Gradient Overlay */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+            {/* Content */}
+            <div className="absolute inset-0 flex items-center justify-center">
               <div
-                className="absolute px-8 md:px-16 max-w-2xl"
-                style={{
-                  textAlign: banner.textAlign,
-                  ...(banner.customPositionDesktop && {
-                    position: "absolute",
+                className="w-full max-w-7xl mx-auto px-6 md:px-12 relative h-full"
+              >
+                <div
+                  className="absolute max-w-xl md:max-w-2xl text-white drop-shadow-lg"
+                  style={{
                     ...(window.innerWidth > 768
                       ? Object.fromEntries(
-                          banner.customPositionDesktop
-                            .split(";")
-                            .map((rule) => rule.trim().split(":"))
-                        )
-                      : Object.fromEntries(
-                          banner.customPositionMobile
-                            .split(";")
-                            .map((rule) => rule.trim().split(":"))
-                        )),
-                  }),
-                }}
-              >
-                <h2 className="text-xl md:text-4xl font-bold text-white mb-2 md:mb-4">
-                  {banner.title}
-                </h2>
-                <p className="text-sm md:text-lg text-white/90">
-                  {banner.subtitle}
-                </p>
+                        banners[currentSlide].customPositionDesktop
+                          .split(";")
+                          .filter(Boolean)
+                          .map((rule) => rule.trim().split(":"))
+                      )
+                      : {
+                        left: "50%",
+                        top: "50%",
+                        transform: "translate(-50%, -50%)",
+                        textAlign: "center",
+                        width: "100%",
+                        padding: "0 20px"
+                      }),
+                  }}
+                >
+                  <motion.h2
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 0.5 }}
+                    className="text-3xl md:text-6xl font-bold mb-4 leading-tight tracking-tight"
+                  >
+                    {banners[currentSlide].title}
+                  </motion.h2>
+                  <motion.p
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.5, duration: 0.5 }}
+                    className="text-lg md:text-2xl font-light text-white/90"
+                  >
+                    {banners[currentSlide].subtitle}
+                  </motion.p>
+
+                  <motion.button
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.7, duration: 0.5 }}
+                    className="mt-8 px-8 py-3 bg-[#7a5c43] hover:bg-[#6a4e3b] text-white rounded-full font-medium transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1"
+                  >
+                    Shop Now
+                  </motion.button>
+                </div>
               </div>
             </div>
-          ))}
-        </div>
+          </motion.div>
+        </AnimatePresence>
       </div>
 
       {/* Navigation Buttons */}
       <button
         onClick={prevSlide}
-        className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-2 rounded-full transition-colors duration-200"
+        className="absolute left-4 md:left-8 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full transition-all duration-300 group z-10"
         aria-label="Previous slide"
       >
-        <ChevronLeft className="w-6 h-6 text-white" />
+        <ChevronLeft className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:scale-110 transition-transform" />
       </button>
       <button
         onClick={nextSlide}
-        className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 p-2 rounded-full transition-colors duration-200"
+        className="absolute right-4 md:right-8 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 backdrop-blur-sm p-3 rounded-full transition-all duration-300 group z-10"
         aria-label="Next slide"
       >
-        <ChevronRight className="w-6 h-6 text-white" />
+        <ChevronRight className="w-6 h-6 md:w-8 md:h-8 text-white group-hover:scale-110 transition-transform" />
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex space-x-3 z-10">
         {banners.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
-            className={`w-2 h-2 rounded-full transition-colors duration-200 ${
-              currentSlide === index ? "bg-white" : "bg-white/50"
-            }`}
+            className={`h-2 rounded-full transition-all duration-300 ${currentSlide === index
+              ? "w-8 bg-white"
+              : "w-2 bg-white/50 hover:bg-white/70"
+              }`}
             aria-label={`Go to slide ${index + 1}`}
           />
         ))}

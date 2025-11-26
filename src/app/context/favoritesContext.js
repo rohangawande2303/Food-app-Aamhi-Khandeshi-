@@ -21,16 +21,7 @@ export const FavoritesProvider = ({ children }) => {
     const [loading, setLoading] = useState(true);
     const { user } = useAuth();
 
-    // Fetch user's favorites from Firestore
-    useEffect(() => {
-        if (user) {
-            fetchFavorites();
-        } else {
-            setFavorites([]);
-            setLoading(false);
-        }
-    }, [user, fetchFavorites]);
-
+    // Define fetchFavorites first
     const fetchFavorites = useCallback(async () => {
         if (!user) return;
 
@@ -55,6 +46,16 @@ export const FavoritesProvider = ({ children }) => {
             setLoading(false);
         }
     }, [user]);
+
+    // Then use it in useEffect
+    useEffect(() => {
+        if (user) {
+            fetchFavorites();
+        } else {
+            setFavorites([]);
+            setLoading(false);
+        }
+    }, [user, fetchFavorites]);
 
     // Check if a product is in favorites
     const isFavorite = (productId) => {

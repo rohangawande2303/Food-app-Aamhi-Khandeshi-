@@ -79,7 +79,7 @@ export default function CustomerReviews() {
                   </div>
 
                   <h3 className="text-2xl md:text-3xl font-bold text-[#7a5c43] mb-2 font-serif italic">
-                    "{testimonials[currentIndex].quote}"
+                    &quot;{testimonials[currentIndex].quote}&quot;
                   </h3>
 
                   <p className="text-gray-600 text-lg leading-relaxed mb-8 max-w-2xl">

@@ -243,7 +243,7 @@ export default function AdminPage() {
                             </div>
                             <h1 className="text-2xl lg:text-3xl font-bold text-[#7a5c43] mb-4">Access Denied</h1>
                             <p className="text-sm lg:text-base text-[#5b4e3b] mb-6">
-                                You don't have permission to access the admin dashboard.
+                                You don&apos;t have permission to access the admin dashboard.
                             </p>
                             <p className="text-xs lg:text-sm text-[#7a5c43] mb-6">
                                 Only authorized administrators can access this page.

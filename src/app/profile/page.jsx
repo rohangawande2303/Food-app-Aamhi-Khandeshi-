@@ -4,6 +4,7 @@ import { useAuth } from "../context/AuthContext";
 import { useFavorites } from "../context/favoritesContext";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   User,
@@ -174,7 +175,7 @@ export default function ProfilePage() {
                 </div>
                 <div className="p-4 bg-gradient-to-br from-[#7a5c43] to-[#6a4e3b] rounded-full overflow-hidden">
                   {photoURL ? (
-                    <img src={photoURL} alt={displayName} className="w-8 h-8 rounded-full" />
+                    <Image src={photoURL} alt={displayName} width={32} height={32} className="w-8 h-8 rounded-full" />
                   ) : (
                     <User className="w-8 h-8 text-white" />
                   )}
@@ -287,10 +288,11 @@ export default function ProfilePage() {
                       {/* Product Image */}
                       {item.productImage && (
                         <div className="w-20 h-20 rounded-lg overflow-hidden flex-shrink-0">
-                          <img
+                          <Image
                             src={item.productImage}
                             alt={item.productTitle}
-                            className="w-full h-full object-cover"
+                            fill
+                            className="object-cover"
                           />
                         </div>
                       )}
@@ -366,7 +368,7 @@ export default function ProfilePage() {
                 transition={{ duration: 0.6 }}
               >
                 {photoURL ? (
-                  <img src={photoURL} alt={displayName} className="w-full h-full object-cover" />
+                  <Image src={photoURL} alt={displayName} fill className="object-cover" />
                 ) : (
                   <User className="w-10 h-10 sm:w-12 sm:h-12 text-white" />
                 )}

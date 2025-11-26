@@ -1,5 +1,5 @@
 "use client";
-import { createContext, useContext, useState, useEffect } from "react";
+import { createContext, useContext, useState, useEffect, useCallback } from "react";
 import { useAuth } from "./AuthContext";
 import {
     collection,
@@ -29,9 +29,9 @@ export const FavoritesProvider = ({ children }) => {
             setFavorites([]);
             setLoading(false);
         }
-    }, [user]);
+    }, [user, fetchFavorites]);
 
-    const fetchFavorites = async () => {
+    const fetchFavorites = useCallback(async () => {
         if (!user) return;
 
         try {
@@ -54,7 +54,7 @@ export const FavoritesProvider = ({ children }) => {
         } finally {
             setLoading(false);
         }
-    };
+    }, [user]);
 
     // Check if a product is in favorites
     const isFavorite = (productId) => {

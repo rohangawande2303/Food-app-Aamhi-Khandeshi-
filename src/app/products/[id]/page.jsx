@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-// import Image from "next/image";
+import Image from "next/image";
 import {
   ChevronLeft,
   ChevronRight,
@@ -35,10 +35,11 @@ function ProductImageCarousel({ images }) {
 
   return (
     <div className="relative h-96">
-      <img
+      <Image
         src={images[currentIndex]}
         alt={`Product image ${currentIndex + 1}`}
-        className="w-full h-full object-cover"
+        fill
+        className="object-cover"
       />
       {images.length > 1 && (
         <>
@@ -242,10 +243,11 @@ export default function ProductDetails({ params }) {
                 <ProductImageCarousel images={product.images} />
               ) : (
                 <div className="relative h-[35rem]">
-                  <img
+                  <Image
                     src={product.image || (product.images && product.images[0])}
                     alt={product.title}
-                    className="w-full h-full object-cover"
+                    fill
+                    className="object-cover"
                   />
                 </div>
               )}

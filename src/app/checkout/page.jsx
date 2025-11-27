@@ -31,6 +31,13 @@ export default function CheckoutPage() {
 
     setIsProcessing(true);
 
+    if (!process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID) {
+      console.error("Razorpay Key ID is missing. Check your environment variables.");
+      alert("Payment configuration missing. Please contact support.");
+      setIsProcessing(false);
+      return;
+    }
+
     try {
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
@@ -419,8 +426,8 @@ export default function CheckoutPage() {
                   type="submit"
                   disabled={isProcessing || cartItems.length === 0}
                   className={`w-full py-4 px-6 rounded-xl font-semibold text-lg transition-all duration-300 flex items-center justify-center gap-2 ${isProcessing || cartItems.length === 0
-                      ? "bg-gray-400 cursor-not-allowed"
-                      : "bg-gradient-to-br from-[#7a5c43] to-[#6a4e3b] text-white hover:shadow-2xl"
+                    ? "bg-gray-400 cursor-not-allowed"
+                    : "bg-gradient-to-br from-[#7a5c43] to-[#6a4e3b] text-white hover:shadow-2xl"
                     }`}
                   whileHover={!isProcessing && cartItems.length > 0 ? { scale: 1.02, y: -2 } : {}}
                   whileTap={!isProcessing && cartItems.length > 0 ? { scale: 0.98 } : {}}

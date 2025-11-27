@@ -9,7 +9,8 @@ const ProtectedRoute = ({ children }) => {
 
     useEffect(() => {
         if (!loading && !user) {
-            router.push("/login");
+            const returnUrl = encodeURIComponent(window.location.pathname);
+            router.push(`/login?message=Please login to proceed to checkout&returnUrl=${returnUrl}`);
         }
     }, [user, loading, router]);
 

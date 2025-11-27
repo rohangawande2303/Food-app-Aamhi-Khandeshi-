@@ -1,46 +1,32 @@
-"use client"; // Mark this as a client component
-
-import dynamic from "next/dynamic";
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import NavbarTop from "./components/NavbarTop";
 import NavbarBottom from "./components/NavbarBottom";
 import Footer from "./components/Footer";
-import { AuthProvider } from "./context/AuthContext";
-import { FavoritesProvider } from "./context/favoritesContext";
-
-// Dynamically load CartProvider to avoid SSR issues
-const CartProvider = dynamic(
-  () => import("./context/cartContext").then((mod) => mod.CartProvider),
-  { ssr: false }
-);
+import { Providers } from "./providers";
 
 const roboto = Roboto({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
 });
 
+export const metadata = {
+  title: "Aamhi Khandeshi",
+  description: "Authentic Maharashtrian homemade pickles and papads",
+  keywords: "homemade pickles, papad, authentic Maharashtrian food, Aamhi Khandeshi",
+};
+
 export default function Layout({ children }) {
   return (
-    <AuthProvider>
-      <html lang="en">
-        <head>
-          <meta
-            name="keywords"
-            content="homemade pickles, papad, authentic Maharashtrian food, Aamhi Khandeshi"
-          />
-        </head>
-        <body className={roboto.className}>
-          <FavoritesProvider>
-            <CartProvider>
-              <NavbarTop />
-              <main>{children}</main>
-              <Footer />
-              <NavbarBottom />
-            </CartProvider>
-          </FavoritesProvider>
-        </body>
-      </html>
-    </AuthProvider>
+    <html lang="en">
+      <body className={roboto.className}>
+        <Providers>
+          <NavbarTop />
+          <main>{children}</main>
+          <Footer />
+          <NavbarBottom />
+        </Providers>
+      </body>
+    </html>
   );
 }

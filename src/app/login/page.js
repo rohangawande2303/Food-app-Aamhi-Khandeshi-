@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -13,6 +13,14 @@ const LoginPage = () => {
     const [isLoading, setIsLoading] = useState(false);
     const { login, signInWithGoogle } = useAuth();
     const router = useRouter();
+    const searchParams = typeof window !== 'undefined' ? new URLSearchParams(window.location.search) : null;
+    const message = searchParams ? searchParams.get('message') : null;
+
+    useEffect(() => {
+        if (message) {
+            setError(message);
+        }
+    }, [message]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
